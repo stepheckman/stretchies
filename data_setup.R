@@ -52,14 +52,34 @@ create_stretch_dataset <- function() {
       priority = tolower(csv_data$Priority),
       category = categorize_stretch(csv_data$Stretch),
       description = descriptions[1:nrow(csv_data)],
+      enabled = TRUE, # Explicitly add enabled column and set to TRUE
       stringsAsFactors = FALSE
     )
+    
+    print(head(stretches))
+    print(tail(stretches))
+    print(summary(stretches))
     
     return(stretches)
   } else {
     # Fallback if CSV doesn't exist
     stop("list.csv file not found. Please ensure the file exists in the app directory.")
   }
+}
+
+# Add logging to reset_all_data
+reset_all_data <- function() {
+  if (file.exists("data/daily_stats.rds")) {
+    file.remove("data/daily_stats.rds")
+  }
+  if (file.exists("data/stretch_history.rds")) {
+    file.remove("data/stretch_history.rds")
+  }
+  # Also remove stretches.rds to ensure a clean recreation from list.csv
+  if (file.exists("data/stretches.rds")) {
+    file.remove("data/stretches.rds")
+  }
+  initialize_data()
 }
 
 # Helper function to categorize stretches
@@ -145,10 +165,16 @@ initialize_data <- function() {
 
 # Load functions
 load_stretches_data <- function() {
+  cat("load_stretches_data called.\n")
   if (file.exists("data/stretches.rds")) {
-    return(readRDS("data/stretches.rds"))
+    data <- readRDS("data/stretches.rds")
+    cat("Loaded stretches from data/stretches.rds. Rows:", nrow(data), "\n")
+    return(data)
   } else {
-    return(create_stretch_dataset())
+    cat("data/stretches.rds not found. Creating new dataset.\n")
+    data <- create_stretch_dataset()
+    cat("Created new stretches dataset. Rows:", nrow(data), "\n")
+    return(data)
   }
 }
 
@@ -267,6 +293,10 @@ reset_all_data <- function() {
   if (file.exists("data/stretch_history.rds")) {
     file.remove("data/stretch_history.rds")
   }
+  # Also remove stretches.rds to ensure a clean recreation from list.csv
+  if (file.exists("data/stretches.rds")) {
+    file.remove("data/stretches.rds")
+  }
   initialize_data()
 }
 
@@ -274,28 +304,17 @@ reset_all_data <- function() {
 
 # Add new stretch - completely rewritten with a simpler approach
 add_new_stretch <- function(name, priority, category, description, enabled = TRUE) {
-  cat("add_new_stretch function called\n")
-  cat("Parameters - Name:", name,
-      "Priority:", priority,
-      "Category:", category,
-      "Enabled:", enabled, "\n")
-  cat("Description length:", nchar(description), "\n")
-  
   tryCatch({
     # Load current stretches
-    cat("Loading current stretches data\n")
     stretches <- load_stretches_data()
-    cat("Current stretches count:", nrow(stretches), "\n")
     
     # Check if stretch name already exists
     if (name %in% stretches$name) {
-      cat("Error: Stretch name already exists\n")
       return(list(success = FALSE, message = "A stretch with this name already exists."))
     }
     
     # Create new stretch ID
     new_id <- ifelse(nrow(stretches) == 0, 1, max(stretches$id) + 1)
-    cat("New stretch ID:", new_id, "\n")
     
     # Create a basic data frame with just the essential columns
     new_stretch <- data.frame(
@@ -313,7 +332,6 @@ add_new_stretch <- function(name, priority, category, description, enabled = TRU
     
     # Get all column names from existing stretches
     all_cols <- names(stretches)
-    cat("All columns in stretches:", paste(all_cols, collapse=", "), "\n")
     
     # Create a new list with all columns from the original dataframe
     new_row <- list()
@@ -328,19 +346,14 @@ add_new_stretch <- function(name, priority, category, description, enabled = TRU
     }
     
     # Add the new row directly to the dataframe
-    cat("Adding new row to stretches dataframe\n")
     stretches[nrow(stretches) + 1, ] <- new_row
-    cat("Updated stretches count:", nrow(stretches), "\n")
     
     # Save to file
-    cat("Saving to file: data/stretches.rds\n")
     saveRDS(stretches, "data/stretches.rds")
-    cat("Save completed\n")
     
     return(list(success = TRUE, message = "Stretch added successfully"))
     
   }, error = function(e) {
-    cat("Error in add_new_stretch:", e$message, "\n")
     return(list(success = FALSE, message = paste("Error adding stretch:", e$message)))
   })
 }

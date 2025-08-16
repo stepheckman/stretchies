@@ -246,13 +246,25 @@ server <- function(input, output, session) {
   
   # Get stretch button
   observeEvent(input$get_stretch, {
+    cat("Get stretch button clicked\n")
+    cat("Current time:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
+    
     stretch <- select_next_stretch()
     values$current_stretch <- stretch
     values$show_stretch <- TRUE
     
+    cat("After select_next_stretch - values$current_stretch (name):",
+        ifelse(is.null(values$current_stretch$name), "NULL", values$current_stretch$name), "\n")
+    cat("values$show_stretch:", values$show_stretch, "\n")
+    
     # Update UI to show the stretch
     output$stretch_display <- renderUI({
+      cat("Rendering stretch_display UI.\n")
+      cat("values$show_stretch in renderUI:", values$show_stretch, "\n")
+      cat("is.null(values$current_stretch) in renderUI:", is.null(values$current_stretch), "\n")
+      
       if (values$show_stretch && !is.null(values$current_stretch)) {
+        cat("Rendering actual stretch display for:", values$current_stretch$name, "\n")
         div(
           div(class = "stretch-name", values$current_stretch$name),
           div(class = "stretch-description", values$current_stretch$description),
@@ -262,6 +274,16 @@ server <- function(input, output, session) {
             br(), br(),
             actionButton("get_another", "🎯 Get Another Stretch", class = "btn-stretch")
           )
+        )
+      } else {
+        cat("Rendering initial/no stretch display.\n")
+        div(
+          h3("Ready to stretch?"),
+          p("Click the button below to get your next stretch!"),
+          br(),
+          actionButton("get_stretch", "🎯 Get My Stretch!",
+                     class = "btn-stretch btn-lg",
+                     style = "font-size: 20px; padding: 20px 40px;")
         )
       }
     })
@@ -274,8 +296,8 @@ server <- function(input, output, session) {
       values$daily_stats <- load_daily_stats()
       values$stretch_history <- load_stretch_history()
       
-      showNotification("Great job! Stretch completed! 🎉", 
-                      type = "success", duration = 3)
+      showNotification("Great job! Stretch completed! 🎉",
+                      type = "message", duration = 3)
       
       # Reset display
       values$show_stretch <- FALSE
@@ -561,7 +583,7 @@ server <- function(input, output, session) {
                   value = selected_stretch$description,
                   rows = 4),
       footer = tagList(
-        actionButton("update_stretch", "💾 Update Stretch", class = "btn btn-primary"),
+        actionButton("save_stretch", "💾 Update Stretch", class = "btn btn-primary"),
         modalButton("Cancel")
       ),
       size = "l"
@@ -638,7 +660,7 @@ server <- function(input, output, session) {
       )
       
       if (result$success) {
-        showNotification("Stretch added successfully! 🎉", type = "success", duration = 3)
+        showNotification("Stretch added successfully! 🎉", type = "message", duration = 3)
         removeModal()  # Close the modal
         # Trigger a refresh of the stretch table
         stretch_table_refresh(stretch_table_refresh() + 1)
@@ -658,7 +680,7 @@ server <- function(input, output, session) {
       )
       
       if (result$success) {
-        showNotification("Stretch updated successfully! ✅", type = "success", duration = 3)
+        showNotification("Stretch updated successfully! ✅", type = "message", duration = 3)
         removeModal()  # Close the modal
         # Trigger a refresh of the stretch table
         stretch_table_refresh(stretch_table_refresh() + 1)
@@ -675,7 +697,7 @@ server <- function(input, output, session) {
     result <- delete_stretch(values$deleting_stretch_id)
     
     if (result$success) {
-      showNotification("Stretch deleted successfully.", type = "success", duration = 3)
+      showNotification("Stretch deleted successfully.", type = "message", duration = 3)
       removeModal()
       # Trigger a refresh of the stretch table
       stretch_table_refresh(stretch_table_refresh() + 1)

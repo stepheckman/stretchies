@@ -7,15 +7,19 @@ select_next_stretch <- function() {
   stretch_history <- load_stretch_history()
   user_prefs <- load_user_preferences()
   
+  cat("Stretches loaded in select_next_stretch (before enabled check):", nrow(stretches), "rows\n")
+
   # Add enabled field if it doesn't exist (for backward compatibility)
   if (!"enabled" %in% names(stretches)) {
-    stretches$enabled <- TRUE
+    stretches$enabled <- rep(TRUE, nrow(stretches)) # Initialize all to TRUE
   }
   
-  # Filter to only enabled stretches
-  enabled_stretches <- stretches[stretches$enabled == TRUE, ]
-  
+  # Filter to only enabled stretches, handling NA values in 'enabled' column
+  enabled_stretches <- stretches[!is.na(stretches$enabled) & stretches$enabled == TRUE, ]
+  cat("Enabled stretches count:", nrow(enabled_stretches), "\n")
+
   if (nrow(enabled_stretches) == 0) {
+    cat("No enabled stretches found. Returning default message.\n")
     # If no stretches are enabled, return NULL or a default message
     return(list(
       id = 0,
@@ -38,16 +42,28 @@ select_next_stretch <- function() {
 
 # Calculate weights for stretch selection
 calculate_stretch_weights <- function(stretches, stretch_history, user_prefs) {
+  print(head(stretches))
+  print(head(stretch_history))
+  print(user_prefs)
+
   weights <- numeric(nrow(stretches))
   
   for (i in 1:nrow(stretches)) {
     stretch_id <- stretches$id[i]
     priority <- stretches$priority[i]
+    cat("Processing stretch ID:", stretch_id, "Priority:", priority, "\n")
     
     # Base weight from priority
-    if (priority == "high") {
+    cat("Priority for stretch ID", stretch_id, ": '", priority, "'\n")
+    cat("is.na(priority):", is.na(priority), "\n")
+    cat("!(priority %in% c('high', 'low')):", !(priority %in% c("high", "low")), "\n")
+    
+    if (is.na(priority) || !(priority %in% c("high", "low"))) {
+      cat("Warning: Invalid or missing priority for stretch ID:", stretch_id, ". Defaulting to low priority.\n")
+      base_weight <- user_prefs$low_priority_weight
+    } else if (priority == "high") {
       base_weight <- user_prefs$high_priority_weight
-    } else {
+    } else { # priority == "low"
       base_weight <- user_prefs$low_priority_weight
     }
     
@@ -63,18 +79,30 @@ calculate_stretch_weights <- function(stretches, stretch_history, user_prefs) {
       if (nrow(last_completed) > 0) {
         days_since_last <- as.numeric(Sys.Date() - max(last_completed$date))
         recency_weight <- min(days_since_last * user_prefs$recency_weight, 10) # Cap at 10
+        cat("Calculated recency_weight (completed):", recency_weight, "\n")
       } else {
         # Never completed, only skipped
         recency_weight <- user_prefs$never_done_bonus * 0.5
+        cat("Calculated recency_weight (never completed, only skipped):", recency_weight, "\n")
       }
     }
     
     # Combine weights
     weights[i] <- base_weight * (1 + recency_weight)
+    cat("Combined weight for stretch ID", stretch_id, ":", weights[i], "\n")
   }
   
+  cat("Raw weights before normalization:\n")
+  print(weights)
+  cat("Sum of raw weights:", sum(weights), "\n")
+  
   # Normalize weights
-  weights <- weights / sum(weights)
+  # Add a check to prevent division by zero or NA sum
+  if (sum(weights) == 0 || is.na(sum(weights))) {
+    weights <- rep(1 / nrow(stretches), nrow(stretches)) # Assign equal weights if sum is problematic
+  } else {
+    weights <- weights / sum(weights)
+  }
   
   return(weights)
 }
