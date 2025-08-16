@@ -7,17 +7,19 @@ X Update the stretch database management functionality
 X Test the complete stretch addition workflow
 X Ensure data persistence for new stretches
 
-move buttons on settings page to top of page
+X move buttons on settings page to top of page
 
-remove the "that's ok" screen when stretch is skipped -- instead, simply move to the next stretch, making sure it is a different one than the one just skipped
+X remove skip button from home screen
 
-make sure the completed stretch counter increments after the done button is pressed, not before
+X make sure the completed stretch counter increments after the done button is pressed, not before
 
 X Add ability to edit existing stretches
 X Add ability to delete stretches with confirmation
 
-Test all functionality end-to-end
+X Test all functionality end-to-end
 
-add button to do a web search for the given stretch, so I can get pointers on how to do it well
+X add button to do a web search for the given stretch, so I can get pointers on how to do it well
+
 move app to shinyapps.io so i can run it from anywhere
+
 Update documentation for new features

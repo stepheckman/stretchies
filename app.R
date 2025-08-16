@@ -168,9 +168,6 @@ ui <- dashboardPage(
           column(width = 4,
             valueBoxOutput("average_daily", width = NULL)
           ),
-          column(width = 4,
-            valueBoxOutput("favorite_stretch", width = NULL)
-          )
         ),
         fluidRow(
           column(width = 12,
@@ -186,9 +183,7 @@ ui <- dashboardPage(
         fluidRow(
           column(width = 8,
             box(title = "🎯 Stretch Management", status = "primary", solidHeader = TRUE, width = NULL,
-              DT::dataTableOutput("stretch_table"),
-              br(),
-              div(style = "display: flex; gap: 10px; flex-wrap: wrap;",
+              div(style = "display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;",
                 actionButton("add_stretch_btn", "➕ Add New Stretch",
                            class = "btn btn-success"),
                 actionButton("edit_stretch_btn", "✏️ Edit Selected",
@@ -198,7 +193,8 @@ ui <- dashboardPage(
                 actionButton("reset_data", "🔄 Reset All Data",
                            class = "btn btn-warning",
                            onclick = "return confirm('Are you sure you want to reset all data?');")
-              )
+              ),
+              DT::dataTableOutput("stretch_table")
             )
           ),
           column(width = 4,
@@ -270,7 +266,7 @@ server <- function(input, output, session) {
           div(class = "stretch-description", values$current_stretch$description),
           div(class = "action-buttons",
             actionButton("mark_done", "✅ Done!", class = "btn-done btn-lg"),
-            actionButton("mark_skip", "⏭️ Skip", class = "btn-skip btn-lg"),
+            actionButton("search_stretch", "🔍 Search Stretch", class = "btn-stretch"), # New button
             br(), br(),
             actionButton("get_another", "🎯 Get Another Stretch", class = "btn-stretch")
           )
@@ -298,46 +294,39 @@ server <- function(input, output, session) {
       
       showNotification("Great job! Stretch completed! 🎉",
                       type = "message", duration = 3)
-      
-      # Reset display
-      values$show_stretch <- FALSE
+
+      # Automatically get the next stretch
+      stretch <- select_next_stretch()
+      values$current_stretch <- stretch
+      values$show_stretch <- TRUE # Ensure the stretch is displayed
+
+      # Update UI to show the next stretch directly
       output$stretch_display <- renderUI({
-        div(
-          h3("Awesome work! 🌟"),
-          p("You completed a stretch! Keep up the great work!"),
-          br(),
-          actionButton("get_stretch", "🎯 Get My Next Stretch!", 
-                     class = "btn-stretch btn-lg", 
-                     style = "font-size: 20px; padding: 20px 40px;")
-        )
+        if (values$show_stretch && !is.null(values$current_stretch)) {
+          div(
+            div(class = "stretch-name", values$current_stretch$name),
+            div(class = "stretch-description", values$current_stretch$description),
+            div(class = "action-buttons",
+              actionButton("mark_done", "✅ Done!", class = "btn-done btn-lg"),
+              actionButton("search_stretch", "🔍 Search Stretch", class = "btn-stretch"),
+              br(), br(),
+              actionButton("get_another", "🎯 Get Another Stretch", class = "btn-stretch")
+            )
+          )
+        } else {
+          div(
+            h3("Ready to stretch?"),
+            p("Click the button below to get your next stretch!"),
+            br(),
+            actionButton("get_stretch", "🎯 Get My Stretch!",
+                       class = "btn-stretch btn-lg",
+                       style = "font-size: 20px; padding: 20px 40px;")
+          )
+        }
       })
     }
   })
   
-  # Mark as skip
-  observeEvent(input$mark_skip, {
-    if (!is.null(values$current_stretch)) {
-      record_stretch_action(values$current_stretch$id, "skipped")
-      values$daily_stats <- load_daily_stats()
-      values$stretch_history <- load_stretch_history()
-      
-      showNotification("No worries! Try another stretch! 💪", 
-                      type = "message", duration = 3)
-      
-      # Reset display
-      values$show_stretch <- FALSE
-      output$stretch_display <- renderUI({
-        div(
-          h3("That's okay! 😊"),
-          p("Not every stretch is right for every moment. Let's find another one!"),
-          br(),
-          actionButton("get_stretch", "🎯 Get My Next Stretch!", 
-                     class = "btn-stretch btn-lg", 
-                     style = "font-size: 20px; padding: 20px 40px;")
-        )
-      })
-    }
-  })
   
   # Get another stretch
   observeEvent(input$get_another, {
@@ -352,13 +341,25 @@ server <- function(input, output, session) {
           div(class = "stretch-description", values$current_stretch$description),
           div(class = "action-buttons",
             actionButton("mark_done", "✅ Done!", class = "btn-done btn-lg"),
-            actionButton("mark_skip", "⏭️ Skip", class = "btn-skip btn-lg"),
+            actionButton("search_stretch", "🔍 Search Stretch", class = "btn-stretch"), # New button
             br(), br(),
             actionButton("get_another", "🎯 Get Another Stretch", class = "btn-stretch")
           )
         )
       }
-    })
+    }) # Closing parenthesis for renderUI
+  }) # Closing parenthesis for observeEvent(input$get_another, ...)
+
+  # Web search for current stretch
+  observeEvent(input$search_stretch, {
+    if (!is.null(values$current_stretch)) {
+      search_query <- URLencode(paste("stretch exercise", values$current_stretch$name), reserved = TRUE)
+      search_url <- paste0("https://www.google.com/search?q=", search_query)
+      browseURL(search_url)
+      showNotification(paste("Searching for:", values$current_stretch$name), type = "message", duration = 3)
+    } else {
+      showNotification("No stretch currently displayed to search for.", type = "warning", duration = 3)
+    }
   })
   
   # Motivational message
@@ -431,15 +432,6 @@ server <- function(input, output, session) {
     )
   })
   
-  output$favorite_stretch <- renderValueBox({
-    favorite <- get_favorite_stretch(values$stretch_history)
-    valueBox(
-      value = favorite,
-      subtitle = "Favorite Stretch",
-      icon = icon("heart"),
-      color = "red"
-    )
-  })
   
   output$detailed_stats <- DT::renderDataTable({
     create_detailed_stats_table(values$stretch_history)
