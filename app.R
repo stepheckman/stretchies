@@ -117,14 +117,7 @@ ui <- dashboardPage(
         fluidRow(
           column(width = 8,
             div(class = "stretch-card",
-              div(id = "stretch-display",
-                h3("Ready to stretch?"),
-                p("Click the button below to get your next stretch!"),
-                br(),
-                actionButton("get_stretch", "🎯 Get My Stretch!", 
-                           class = "btn-stretch btn-lg", 
-                           style = "font-size: 20px; padding: 20px 40px;")
-              )
+              uiOutput("stretch_display")
             ),
             
             div(class = "motivational-message",
@@ -191,21 +184,30 @@ ui <- dashboardPage(
       # Settings tab
       tabItem(tabName = "settings",
         fluidRow(
-          column(width = 6,
+          column(width = 8,
             box(title = "🎯 Stretch Management", status = "primary", solidHeader = TRUE, width = NULL,
               DT::dataTableOutput("stretch_table"),
               br(),
-              actionButton("reset_data", "🔄 Reset All Data", 
-                         class = "btn btn-warning",
-                         onclick = "return confirm('Are you sure you want to reset all data?');")
+              div(style = "display: flex; gap: 10px; flex-wrap: wrap;",
+                actionButton("add_stretch_btn", "➕ Add New Stretch",
+                           class = "btn btn-success"),
+                actionButton("edit_stretch_btn", "✏️ Edit Selected",
+                           class = "btn btn-info"),
+                actionButton("delete_stretch_btn", "🗑️ Delete Selected",
+                           class = "btn btn-danger"),
+                actionButton("reset_data", "🔄 Reset All Data",
+                           class = "btn btn-warning",
+                           onclick = "return confirm('Are you sure you want to reset all data?');")
+              )
             )
           ),
-          column(width = 6,
+          column(width = 4,
             box(title = "📊 App Statistics", status = "info", solidHeader = TRUE, width = NULL,
               verbatimTextOutput("app_info")
             )
           )
-        )
+        ),
+        
       )
     )
   )
@@ -219,13 +221,27 @@ server <- function(input, output, session) {
     current_stretch = NULL,
     show_stretch = FALSE,
     daily_stats = NULL,
-    stretch_history = NULL
+    stretch_history = NULL,
+    form_mode = "none",  # none, add, edit
+    editing_stretch_id = NULL
   )
   
   # Load data on startup
   observe({
     values$daily_stats <- load_daily_stats()
     values$stretch_history <- load_stretch_history()
+  })
+  
+  # Initialize stretch display
+  output$stretch_display <- renderUI({
+    div(
+      h3("Ready to stretch?"),
+      p("Click the button below to get your next stretch!"),
+      br(),
+      actionButton("get_stretch", "🎯 Get My Stretch!",
+                 class = "btn-stretch btn-lg",
+                 style = "font-size: 20px; padding: 20px 40px;")
+    )
   })
   
   # Get stretch button
@@ -409,8 +425,21 @@ server <- function(input, output, session) {
   
   # Settings tab
   output$stretch_table <- DT::renderDataTable({
-    load_stretches_data()
-  }, options = list(pageLength = 15), editable = TRUE)
+    # React to the refresh trigger
+    refresh_trigger <- stretch_table_refresh()
+    cat("Rendering stretch table (refresh #", refresh_trigger, ")\n")
+    
+    stretches <- load_stretches_data()
+    cat("Loaded stretches count:", nrow(stretches), "\n")
+    
+    # Add row selection and make it more user-friendly
+    stretches$enabled <- ifelse(is.null(stretches$enabled), TRUE, stretches$enabled)
+    stretches
+  }, options = list(
+    pageLength = 15,
+    selection = 'single',
+    scrollX = TRUE
+  ), server = TRUE)
   
   output$app_info <- renderText({
     paste(
@@ -420,6 +449,240 @@ server <- function(input, output, session) {
       paste("Last Updated:", Sys.time()),
       sep = "\n"
     )
+  })
+  
+  # Stretch Management Event Handlers
+  
+  # Form state management
+  
+  
+  # Add new stretch button
+  observeEvent(input$add_stretch_btn, {
+    cat("Add stretch button clicked\n")
+    cat("Current time:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
+    
+    # Show modal directly
+    showModal(modalDialog(
+      title = "Add New Stretch",
+      fluidRow(
+        column(width = 6,
+          textInput("stretch_name", "Stretch Name:",
+                  placeholder = "Enter stretch name...")
+        ),
+        column(width = 6,
+          selectInput("stretch_priority", "Priority:",
+                    choices = list("High" = "high", "Low" = "low"),
+                    selected = "low")
+        )
+      ),
+      fluidRow(
+        column(width = 6,
+          selectInput("stretch_category", "Category:",
+                    choices = list(
+                      "Hips" = "hips",
+                      "Core" = "core",
+                      "Feet & Ankles" = "feet_ankles",
+                      "Spine & Shoulders" = "spine_shoulders",
+                      "Functional" = "functional",
+                      "Mobility" = "mobility",
+                      "Flexibility" = "flexibility",
+                      "General" = "general"
+                    ),
+                    selected = "general")
+        ),
+        column(width = 6,
+          div(style = "margin-top: 25px;",
+            checkboxInput("stretch_enabled", "Enabled", value = TRUE)
+          )
+        )
+      ),
+      textAreaInput("stretch_description", "Description:",
+                  placeholder = "Enter a detailed description of the stretch...",
+                  rows = 4),
+      footer = tagList(
+        actionButton("save_stretch", "💾 Save Stretch", class = "btn btn-primary"),
+        modalButton("Cancel")
+      ),
+      size = "l"
+    ))
+    
+    # Set form mode
+    values$form_mode <- "add"
+  })
+  
+  # Edit stretch button
+  observeEvent(input$edit_stretch_btn, {
+    selected_row <- input$stretch_table_rows_selected
+    if (length(selected_row) == 0) {
+      showNotification("Please select a stretch to edit.", type = "warning", duration = 3)
+      return()
+    }
+    
+    stretches <- load_stretches_data()
+    selected_stretch <- stretches[selected_row, ]
+    
+    # Show modal with populated data
+    showModal(modalDialog(
+      title = paste("Edit Stretch:", selected_stretch$name),
+      fluidRow(
+        column(width = 6,
+          textInput("stretch_name", "Stretch Name:",
+                  value = selected_stretch$name)
+        ),
+        column(width = 6,
+          selectInput("stretch_priority", "Priority:",
+                    choices = list("High" = "high", "Low" = "low"),
+                    selected = selected_stretch$priority)
+        )
+      ),
+      fluidRow(
+        column(width = 6,
+          selectInput("stretch_category", "Category:",
+                    choices = list(
+                      "Hips" = "hips",
+                      "Core" = "core",
+                      "Feet & Ankles" = "feet_ankles",
+                      "Spine & Shoulders" = "spine_shoulders",
+                      "Functional" = "functional",
+                      "Mobility" = "mobility",
+                      "Flexibility" = "flexibility",
+                      "General" = "general"
+                    ),
+                    selected = selected_stretch$category)
+        ),
+        column(width = 6,
+          div(style = "margin-top: 25px;",
+            checkboxInput("stretch_enabled", "Enabled",
+                        value = ifelse(is.null(selected_stretch$enabled), TRUE, selected_stretch$enabled))
+          )
+        )
+      ),
+      textAreaInput("stretch_description", "Description:",
+                  value = selected_stretch$description,
+                  rows = 4),
+      footer = tagList(
+        actionButton("update_stretch", "💾 Update Stretch", class = "btn btn-primary"),
+        modalButton("Cancel")
+      ),
+      size = "l"
+    ))
+    
+    # Set form mode and store ID
+    values$form_mode <- "edit"
+    values$editing_stretch_id <- selected_stretch$id
+  })
+  
+  
+  # Delete stretch button
+  observeEvent(input$delete_stretch_btn, {
+    selected_row <- input$stretch_table_rows_selected
+    if (length(selected_row) == 0) {
+      showNotification("Please select a stretch to delete.", type = "warning", duration = 3)
+      return()
+    }
+    
+    stretches <- load_stretches_data()
+    selected_stretch <- stretches[selected_row, ]
+    
+    showModal(modalDialog(
+      title = "Confirm Deletion",
+      paste("Are you sure you want to delete the stretch:", selected_stretch$name, "?"),
+      br(), br(),
+      "This action cannot be undone.",
+      footer = tagList(
+        actionButton("confirm_delete", "🗑️ Delete", class = "btn btn-danger"),
+        modalButton("Cancel")
+      )
+    ))
+    
+    values$deleting_stretch_id <- selected_stretch$id
+  })
+  
+  # Create a reactive value to track when to refresh the stretch table
+  stretch_table_refresh <- reactiveVal(0)
+  
+  # Save stretch (handles both add and edit)
+  observeEvent(input$save_stretch, {
+    cat("Save stretch button clicked\n")
+    cat("Current time:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
+    cat("Form mode:", values$form_mode, "\n")
+    cat("Form data - Name:", input$stretch_name,
+        "Priority:", input$stretch_priority,
+        "Category:", input$stretch_category,
+        "Enabled:", input$stretch_enabled, "\n")
+    
+    # Validate input using the validation function
+    validation <- validate_stretch_data(
+      input$stretch_name,
+      input$stretch_priority,
+      input$stretch_category,
+      input$stretch_description
+    )
+    
+    cat("Validation result:", validation$valid, "\n")
+    if (!validation$valid) {
+      cat("Validation errors:", paste(validation$errors, collapse = "; "), "\n")
+      showNotification(paste("Validation errors:", paste(validation$errors, collapse = "; ")),
+                      type = "error", duration = 5)
+      return()
+    }
+    
+    if (values$form_mode == "add") {
+      # Add the new stretch
+      result <- add_new_stretch(
+        name = trimws(input$stretch_name),
+        priority = input$stretch_priority,
+        category = input$stretch_category,
+        description = trimws(input$stretch_description),
+        enabled = input$stretch_enabled
+      )
+      
+      if (result$success) {
+        showNotification("Stretch added successfully! 🎉", type = "success", duration = 3)
+        removeModal()  # Close the modal
+        # Trigger a refresh of the stretch table
+        stretch_table_refresh(stretch_table_refresh() + 1)
+        cat("Triggered stretch table refresh after adding\n")
+      } else {
+        showNotification(paste("Error:", result$message), type = "error", duration = 5)
+      }
+    } else if (values$form_mode == "edit") {
+      # Update the stretch
+      result <- update_stretch(
+        id = values$editing_stretch_id,
+        name = trimws(input$stretch_name),
+        priority = input$stretch_priority,
+        category = input$stretch_category,
+        description = trimws(input$stretch_description),
+        enabled = input$stretch_enabled
+      )
+      
+      if (result$success) {
+        showNotification("Stretch updated successfully! ✅", type = "success", duration = 3)
+        removeModal()  # Close the modal
+        # Trigger a refresh of the stretch table
+        stretch_table_refresh(stretch_table_refresh() + 1)
+        cat("Triggered stretch table refresh after editing\n")
+      } else {
+        showNotification(paste("Error:", result$message), type = "error", duration = 5)
+      }
+    }
+  })
+  
+  # Confirm delete stretch
+  observeEvent(input$confirm_delete, {
+    cat("Confirm delete button clicked for stretch ID:", values$deleting_stretch_id, "\n")
+    result <- delete_stretch(values$deleting_stretch_id)
+    
+    if (result$success) {
+      showNotification("Stretch deleted successfully.", type = "success", duration = 3)
+      removeModal()
+      # Trigger a refresh of the stretch table
+      stretch_table_refresh(stretch_table_refresh() + 1)
+      cat("Triggered stretch table refresh after deletion\n")
+    } else {
+      showNotification(paste("Error:", result$message), type = "error", duration = 5)
+    }
   })
   
   # Reset data

@@ -7,12 +7,31 @@ select_next_stretch <- function() {
   stretch_history <- load_stretch_history()
   user_prefs <- load_user_preferences()
   
-  # Calculate weights for each stretch
-  weights <- calculate_stretch_weights(stretches, stretch_history, user_prefs)
+  # Add enabled field if it doesn't exist (for backward compatibility)
+  if (!"enabled" %in% names(stretches)) {
+    stretches$enabled <- TRUE
+  }
+  
+  # Filter to only enabled stretches
+  enabled_stretches <- stretches[stretches$enabled == TRUE, ]
+  
+  if (nrow(enabled_stretches) == 0) {
+    # If no stretches are enabled, return NULL or a default message
+    return(list(
+      id = 0,
+      name = "No stretches available",
+      description = "Please add some stretches in the Settings tab!",
+      priority = "low",
+      category = "general"
+    ))
+  }
+  
+  # Calculate weights for enabled stretches only
+  weights <- calculate_stretch_weights(enabled_stretches, stretch_history, user_prefs)
   
   # Select stretch based on weighted probability
-  selected_id <- sample(stretches$id, 1, prob = weights)
-  selected_stretch <- stretches[stretches$id == selected_id, ]
+  selected_id <- sample(enabled_stretches$id, 1, prob = weights)
+  selected_stretch <- enabled_stretches[enabled_stretches$id == selected_id, ]
   
   return(selected_stretch)
 }

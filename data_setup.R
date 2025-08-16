@@ -269,3 +269,191 @@ reset_all_data <- function() {
   }
   initialize_data()
 }
+
+# CRUD Operations for Stretch Management
+
+# Add new stretch - completely rewritten with a simpler approach
+add_new_stretch <- function(name, priority, category, description, enabled = TRUE) {
+  cat("add_new_stretch function called\n")
+  cat("Parameters - Name:", name,
+      "Priority:", priority,
+      "Category:", category,
+      "Enabled:", enabled, "\n")
+  cat("Description length:", nchar(description), "\n")
+  
+  tryCatch({
+    # Load current stretches
+    cat("Loading current stretches data\n")
+    stretches <- load_stretches_data()
+    cat("Current stretches count:", nrow(stretches), "\n")
+    
+    # Check if stretch name already exists
+    if (name %in% stretches$name) {
+      cat("Error: Stretch name already exists\n")
+      return(list(success = FALSE, message = "A stretch with this name already exists."))
+    }
+    
+    # Create new stretch ID
+    new_id <- ifelse(nrow(stretches) == 0, 1, max(stretches$id) + 1)
+    cat("New stretch ID:", new_id, "\n")
+    
+    # Create a basic data frame with just the essential columns
+    new_stretch <- data.frame(
+      id = new_id,
+      name = name,
+      priority = priority,
+      category = category,
+      description = description,
+      enabled = enabled,
+      stringsAsFactors = FALSE
+    )
+    
+    # Convert to list for easier manipulation
+    stretch_list <- as.list(new_stretch)
+    
+    # Get all column names from existing stretches
+    all_cols <- names(stretches)
+    cat("All columns in stretches:", paste(all_cols, collapse=", "), "\n")
+    
+    # Create a new list with all columns from the original dataframe
+    new_row <- list()
+    for (col in all_cols) {
+      if (col %in% names(stretch_list)) {
+        # Use the value we provided
+        new_row[[col]] <- stretch_list[[col]]
+      } else {
+        # Use NA for any other columns
+        new_row[[col]] <- NA
+      }
+    }
+    
+    # Add the new row directly to the dataframe
+    cat("Adding new row to stretches dataframe\n")
+    stretches[nrow(stretches) + 1, ] <- new_row
+    cat("Updated stretches count:", nrow(stretches), "\n")
+    
+    # Save to file
+    cat("Saving to file: data/stretches.rds\n")
+    saveRDS(stretches, "data/stretches.rds")
+    cat("Save completed\n")
+    
+    return(list(success = TRUE, message = "Stretch added successfully"))
+    
+  }, error = function(e) {
+    cat("Error in add_new_stretch:", e$message, "\n")
+    return(list(success = FALSE, message = paste("Error adding stretch:", e$message)))
+  })
+}
+
+# Update existing stretch
+update_stretch <- function(id, name, priority, category, description, enabled = TRUE) {
+  tryCatch({
+    # Load current stretches
+    stretches <- load_stretches_data()
+    
+    # Find the stretch to update
+    stretch_index <- which(stretches$id == id)
+    if (length(stretch_index) == 0) {
+      return(list(success = FALSE, message = "Stretch not found."))
+    }
+    
+    # Check if new name conflicts with existing stretch (excluding current one)
+    existing_names <- stretches$name[stretches$id != id]
+    if (name %in% existing_names) {
+      return(list(success = FALSE, message = "A stretch with this name already exists."))
+    }
+    
+    # Update the stretch
+    stretches$name[stretch_index] <- name
+    stretches$priority[stretch_index] <- priority
+    stretches$category[stretch_index] <- category
+    stretches$description[stretch_index] <- description
+    stretches$enabled[stretch_index] <- enabled
+    
+    # Save to file
+    saveRDS(stretches, "data/stretches.rds")
+    
+    return(list(success = TRUE, message = "Stretch updated successfully"))
+    
+  }, error = function(e) {
+    return(list(success = FALSE, message = paste("Error updating stretch:", e$message)))
+  })
+}
+
+# Delete stretch
+delete_stretch <- function(id) {
+  tryCatch({
+    # Load current stretches
+    stretches <- load_stretches_data()
+    
+    # Find the stretch to delete
+    stretch_index <- which(stretches$id == id)
+    if (length(stretch_index) == 0) {
+      return(list(success = FALSE, message = "Stretch not found."))
+    }
+    
+    # Check if stretch has history (optional warning)
+    stretch_history <- load_stretch_history()
+    has_history <- any(stretch_history$stretch_id == id)
+    
+    # Remove the stretch
+    stretches <- stretches[-stretch_index, ]
+    
+    # Save to file
+    saveRDS(stretches, "data/stretches.rds")
+    
+    # Optionally clean up history for deleted stretch
+    if (has_history) {
+      stretch_history <- stretch_history[stretch_history$stretch_id != id, ]
+      save_stretch_history(stretch_history)
+    }
+    
+    return(list(success = TRUE, message = "Stretch deleted successfully"))
+    
+  }, error = function(e) {
+    return(list(success = FALSE, message = paste("Error deleting stretch:", e$message)))
+  })
+}
+
+# Get stretch by ID
+get_stretch_by_id <- function(id) {
+  stretches <- load_stretches_data()
+  stretch_index <- which(stretches$id == id)
+  if (length(stretch_index) == 0) {
+    return(NULL)
+  }
+  return(stretches[stretch_index, ])
+}
+
+# Validate stretch data
+validate_stretch_data <- function(name, priority, category, description) {
+  errors <- character(0)
+  
+  if (is.null(name) || name == "" || nchar(trimws(name)) == 0) {
+    errors <- c(errors, "Stretch name is required")
+  }
+  
+  if (nchar(name) > 100) {
+    errors <- c(errors, "Stretch name must be less than 100 characters")
+  }
+  
+  if (!priority %in% c("high", "low")) {
+    errors <- c(errors, "Priority must be 'high' or 'low'")
+  }
+  
+  valid_categories <- c("hips", "core", "feet_ankles", "spine_shoulders",
+                       "functional", "mobility", "flexibility", "general")
+  if (!category %in% valid_categories) {
+    errors <- c(errors, "Invalid category selected")
+  }
+  
+  if (is.null(description) || description == "" || nchar(trimws(description)) == 0) {
+    errors <- c(errors, "Description is required")
+  }
+  
+  if (nchar(description) > 500) {
+    errors <- c(errors, "Description must be less than 500 characters")
+  }
+  
+  return(list(valid = length(errors) == 0, errors = errors))
+}
