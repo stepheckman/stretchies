@@ -1,6 +1,14 @@
 # Data Setup for Stretch Tracker App
 # This file handles data initialization and management
 
+cat("Attempting to load googledrive library...\n")
+library(googledrive)
+# rsconnect library is not strictly needed for environment detection if using R_SHINY_APP_NAME
+cat("googledrive library loaded successfully.\n")
+
+# Define the Google Drive folder name for the application data
+DRIVE_APP_FOLDER <- "StretchiesAppData"
+
 # Create initial stretch dataset from CSV file
 create_stretch_dataset <- function() {
   # Read the CSV file
@@ -67,19 +75,28 @@ create_stretch_dataset <- function() {
   }
 }
 
-# Add logging to reset_all_data
 reset_all_data <- function() {
-  if (file.exists("data/daily_stats.rds")) {
-    file.remove("data/daily_stats.rds")
+  cat("Resetting all data...\n")
+  
+  # Delete files from Google Drive
+  files_to_delete <- c("daily_stats.rds", "stretch_history.rds", "stretches.rds", "user_preferences.rds")
+  app_folder <- drive_find(DRIVE_APP_FOLDER, type = "folder", verbose = FALSE)
+  
+  if (nrow(app_folder) > 0) {
+    for (file_name in files_to_delete) {
+      file_path_gd <- file.path(DRIVE_APP_FOLDER, file_name)
+      if (nrow(drive_find(file_path_gd, verbose = FALSE)) > 0) {
+        cat("Deleting", file_name, "from Google Drive.\n")
+        drive_rm(drive_get(file_path_gd), verbose = FALSE)
+      }
+    }
+  } else {
+    cat("Google Drive application folder not found. No files to delete from Drive.\n")
   }
-  if (file.exists("data/stretch_history.rds")) {
-    file.remove("data/stretch_history.rds")
-  }
-  # Also remove stretches.rds to ensure a clean recreation from list.csv
-  if (file.exists("data/stretches.rds")) {
-    file.remove("data/stretches.rds")
-  }
+  
+  # Re-initialize data, which will create new empty files in Google Drive
   initialize_data()
+  cat("Data reset complete and re-initialized.\n")
 }
 
 # Helper function to categorize stretches
@@ -113,19 +130,87 @@ categorize_stretch <- function(stretch_names) {
 
 # Initialize all data files
 initialize_data <- function() {
-  # Create data directory if it doesn't exist
-  if (!dir.exists("data")) {
-    dir.create("data")
+  cat("Starting Google Drive authentication...\n")
+  # Authenticate with Google Drive (non-interactive for shinyapps.io)
+  # This assumes GOOGLEDrive_TOKEN environment variable is set on shinyapps.io
+  # or a .httr-oauth file is present.
+  # For local development, it will prompt for interactive authentication.
+  # Authenticate with Google Drive
+  # Authenticate with Google Drive
+  tryCatch({
+    # Debugging environment variables
+    cat("DEBUG: R_SHINY_APP_NAME:", Sys.getenv("R_SHINY_APP_NAME"), "\n")
+    cat("DEBUG: rsconnect.shinyapps.io.account option:", getOption("rsconnect.shinyapps.io.account"), "\n")
+
+    # Check if running on shinyapps.io using a more reliable method
+    if (!is.null(getOption("rsconnect.shinyapps.io.account")) || Sys.getenv("R_SHINY_APP_NAME") != "") {
+      cat("DEBUG: Detected shinyapps.io environment.\n")
+      token_value <- Sys.getenv("GOOGLEDrive_TOKEN")
+      if (token_value != "") {
+        cat("DEBUG: GOOGLEDrive_TOKEN found. Attempting drive_auth with token...\n")
+        drive_auth(token = token_value)
+        if (drive_has_token()) {
+          cat("Google Drive authentication successful using GOOGLEDrive_TOKEN on shinyapps.io.\n")
+        } else {
+          stop("drive_auth with GOOGLEDrive_TOKEN failed to acquire a token on shinyapps.io.")
+        }
+      } else {
+        stop("GOOGLEDrive_TOKEN environment variable is not set on shinyapps.io. Google Drive authentication failed.")
+      }
+    } else {
+      # Local development: attempt interactive/cached authentication
+      cat("DEBUG: Running locally. Attempting interactive/cached auth...\n")
+      drive_auth(cache = ".httr-oauth", email = TRUE)
+      if (drive_has_token()) {
+        cat("Google Drive authentication successful using cached token or interactive auth locally.\n")
+      } else {
+        stop("Local Google Drive authentication failed. Please ensure you can interactively authenticate or .httr-oauth is present.")
+      }
+    }
+  }, error = function(e) {
+    cat(paste0("ERROR: Google Drive authentication failed in tryCatch block: ", e$message, "\n"))
+    stop(paste0("Google Drive authentication failed. Please ensure GOOGLEDrive_TOKEN is set on shinyapps.io or .httr-oauth is present locally. Error: ", e$message))
+  }, warning = function(w) {
+    cat(paste0("WARNING: Google Drive authentication warning: ", w$message, "\n"))
+  })
+  
+  # Check for and create the application folder in Google Drive
+  cat("Checking for Google Drive application folder...\n")
+  app_folder <- drive_find(DRIVE_APP_FOLDER, type = "folder", verbose = FALSE)
+  if (nrow(app_folder) == 0) {
+    cat("Google Drive folder '", DRIVE_APP_FOLDER, "' not found. Creating it...\n")
+    app_folder <- drive_mkdir(DRIVE_APP_FOLDER, verbose = FALSE)
+    cat("Google Drive folder created successfully.\n")
+  } else {
+    cat("Google Drive folder '", DRIVE_APP_FOLDER, "' already exists.\n")
   }
   
-  # Create stretches dataset if it doesn't exist
-  if (!file.exists("data/stretches.rds")) {
+  # Define file paths within the Google Drive folder
+  stretches_path_gd <- file.path(DRIVE_APP_FOLDER, "stretches.rds")
+  daily_stats_path_gd <- file.path(DRIVE_APP_FOLDER, "daily_stats.rds")
+  stretch_history_path_gd <- file.path(DRIVE_APP_FOLDER, "stretch_history.rds")
+  user_preferences_path_gd <- file.path(DRIVE_APP_FOLDER, "user_preferences.rds")
+  
+  # Check and create/upload initial data files if they don't exist in Google Drive
+  
+  # Stretches data
+  cat("Checking for stretches.rds in Google Drive...\n")
+  if (nrow(drive_find(stretches_path_gd, verbose = FALSE)) == 0) {
+    cat("stretches.rds not found in Google Drive. Creating and uploading initial dataset.\n")
     stretches <- create_stretch_dataset()
-    saveRDS(stretches, "data/stretches.rds")
+    temp_file <- tempfile(fileext = ".rds")
+    saveRDS(stretches, temp_file)
+    drive_upload(temp_file, path = as_id(app_folder), name = "stretches.rds", verbose = FALSE)
+    unlink(temp_file)
+    cat("stretches.rds uploaded successfully.\n")
+  } else {
+    cat("stretches.rds found in Google Drive.\n")
   }
   
-  # Create empty daily stats if it doesn't exist
-  if (!file.exists("data/daily_stats.rds")) {
+  # Daily stats
+  cat("Checking for daily_stats.rds in Google Drive...\n")
+  if (nrow(drive_find(daily_stats_path_gd, verbose = FALSE)) == 0) {
+    cat("daily_stats.rds not found in Google Drive. Creating and uploading initial dataset.\n")
     daily_stats <- data.frame(
       date = as.Date(character()),
       completed_count = integer(),
@@ -133,11 +218,19 @@ initialize_data <- function() {
       total_count = integer(),
       stringsAsFactors = FALSE
     )
-    saveRDS(daily_stats, "data/daily_stats.rds")
+    temp_file <- tempfile(fileext = ".rds")
+    saveRDS(daily_stats, temp_file)
+    drive_upload(temp_file, path = as_id(app_folder), name = "daily_stats.rds", verbose = FALSE)
+    unlink(temp_file)
+    cat("daily_stats.rds uploaded successfully.\n")
+  } else {
+    cat("daily_stats.rds found in Google Drive.\n")
   }
   
-  # Create empty stretch history if it doesn't exist
-  if (!file.exists("data/stretch_history.rds")) {
+  # Stretch history
+  cat("Checking for stretch_history.rds in Google Drive...\n")
+  if (nrow(drive_find(stretch_history_path_gd, verbose = FALSE)) == 0) {
+    cat("stretch_history.rds not found in Google Drive. Creating and uploading initial dataset.\n")
     stretch_history <- data.frame(
       id = integer(),
       stretch_id = integer(),
@@ -147,11 +240,19 @@ initialize_data <- function() {
       date = as.Date(character()),
       stringsAsFactors = FALSE
     )
-    saveRDS(stretch_history, "data/stretch_history.rds")
+    temp_file <- tempfile(fileext = ".rds")
+    saveRDS(stretch_history, temp_file)
+    drive_upload(temp_file, path = as_id(app_folder), name = "stretch_history.rds", verbose = FALSE)
+    unlink(temp_file)
+    cat("stretch_history.rds uploaded successfully.\n")
+  } else {
+    cat("stretch_history.rds found in Google Drive.\n")
   }
   
-  # Create user preferences if it doesn't exist
-  if (!file.exists("data/user_preferences.rds")) {
+  # User preferences
+  cat("Checking for user_preferences.rds in Google Drive...\n")
+  if (nrow(drive_find(user_preferences_path_gd, verbose = FALSE)) == 0) {
+    cat("user_preferences.rds not found in Google Drive. Creating and uploading initial dataset.\n")
     user_prefs <- list(
       daily_goal = 5,
       high_priority_weight = 3,
@@ -159,28 +260,55 @@ initialize_data <- function() {
       recency_weight = 2,
       never_done_bonus = 5
     )
-    saveRDS(user_prefs, "data/user_preferences.rds")
+    temp_file <- tempfile(fileext = ".rds")
+    saveRDS(user_prefs, temp_file)
+    drive_upload(temp_file, path = as_id(app_folder), name = "user_preferences.rds", verbose = FALSE)
+    unlink(temp_file)
+    cat("user_preferences.rds uploaded successfully.\n")
+  } else {
+    cat("user_preferences.rds found in Google Drive.\n")
   }
 }
 
 # Load functions
 load_stretches_data <- function() {
-  cat("load_stretches_data called.\n")
-  if (file.exists("data/stretches.rds")) {
-    data <- readRDS("data/stretches.rds")
-    cat("Loaded stretches from data/stretches.rds. Rows:", nrow(data), "\n")
+  cat("load_stretches_data called. Checking for stretches.rds...\n")
+  file_path_gd <- file.path(DRIVE_APP_FOLDER, "stretches.rds")
+  
+  if (nrow(drive_find(file_path_gd, verbose = FALSE)) > 0) {
+    cat("stretches.rds found in Google Drive. Reading data...\n")
+    temp_file <- tempfile(fileext = ".rds")
+    drive_download(drive_get(file_path_gd), path = temp_file, overwrite = TRUE, verbose = FALSE)
+    data <- readRDS(temp_file)
+    unlink(temp_file)
+    cat("Loaded stretches from Google Drive. Rows:", nrow(data), "\n")
     return(data)
   } else {
-    cat("data/stretches.rds not found. Creating new dataset.\n")
+    cat("stretches.rds not found in Google Drive during load. Attempting to create new dataset locally and upload.\n")
     data <- create_stretch_dataset()
-    cat("Created new stretches dataset. Rows:", nrow(data), "\n")
+    # Upload the newly created data to Google Drive
+    app_folder <- drive_find(DRIVE_APP_FOLDER, type = "folder", verbose = FALSE)
+    if (nrow(app_folder) > 0) {
+      temp_file <- tempfile(fileext = ".rds")
+      saveRDS(data, temp_file)
+      drive_upload(temp_file, path = as_id(app_folder), name = "stretches.rds", verbose = FALSE)
+      unlink(temp_file)
+      cat("Created and uploaded new stretches dataset. Rows:", nrow(data), "\n")
+    } else {
+      stop("Google Drive application folder not found. Cannot upload initial data.")
+    }
     return(data)
   }
 }
 
 load_daily_stats <- function() {
-  if (file.exists("data/daily_stats.rds")) {
-    return(readRDS("data/daily_stats.rds"))
+  file_path_gd <- file.path(DRIVE_APP_FOLDER, "daily_stats.rds")
+  if (nrow(drive_find(file_path_gd, verbose = FALSE)) > 0) {
+    temp_file <- tempfile(fileext = ".rds")
+    drive_download(drive_get(file_path_gd), path = temp_file, overwrite = TRUE, verbose = FALSE)
+    data <- readRDS(temp_file)
+    unlink(temp_file)
+    return(data)
   } else {
     return(data.frame(
       date = as.Date(character()),
@@ -193,8 +321,13 @@ load_daily_stats <- function() {
 }
 
 load_stretch_history <- function() {
-  if (file.exists("data/stretch_history.rds")) {
-    return(readRDS("data/stretch_history.rds"))
+  file_path_gd <- file.path(DRIVE_APP_FOLDER, "stretch_history.rds")
+  if (nrow(drive_find(file_path_gd, verbose = FALSE)) > 0) {
+    temp_file <- tempfile(fileext = ".rds")
+    drive_download(drive_get(file_path_gd), path = temp_file, overwrite = TRUE, verbose = FALSE)
+    data <- readRDS(temp_file)
+    unlink(temp_file)
+    return(data)
   } else {
     return(data.frame(
       id = integer(),
@@ -209,8 +342,13 @@ load_stretch_history <- function() {
 }
 
 load_user_preferences <- function() {
-  if (file.exists("data/user_preferences.rds")) {
-    return(readRDS("data/user_preferences.rds"))
+  file_path_gd <- file.path(DRIVE_APP_FOLDER, "user_preferences.rds")
+  if (nrow(drive_find(file_path_gd, verbose = FALSE)) > 0) {
+    temp_file <- tempfile(fileext = ".rds")
+    drive_download(drive_get(file_path_gd), path = temp_file, overwrite = TRUE, verbose = FALSE)
+    data <- readRDS(temp_file)
+    unlink(temp_file)
+    return(data)
   } else {
     return(list(
       daily_goal = 5,
@@ -224,11 +362,19 @@ load_user_preferences <- function() {
 
 # Save functions
 save_daily_stats <- function(daily_stats) {
-  saveRDS(daily_stats, "data/daily_stats.rds")
+  file_path_gd <- file.path(DRIVE_APP_FOLDER, "daily_stats.rds")
+  temp_file <- tempfile(fileext = ".rds")
+  saveRDS(daily_stats, temp_file)
+  drive_update(file = drive_get(file_path_gd), media = temp_file, verbose = FALSE)
+  unlink(temp_file)
 }
 
 save_stretch_history <- function(stretch_history) {
-  saveRDS(stretch_history, "data/stretch_history.rds")
+  file_path_gd <- file.path(DRIVE_APP_FOLDER, "stretch_history.rds")
+  temp_file <- tempfile(fileext = ".rds")
+  saveRDS(stretch_history, temp_file)
+  drive_update(file = drive_get(file_path_gd), media = temp_file, verbose = FALSE)
+  unlink(temp_file)
 }
 
 # Record stretch action
@@ -287,17 +433,27 @@ record_stretch_action <- function(stretch_id, action) {
 
 # Reset all data
 reset_all_data <- function() {
-  if (file.exists("data/daily_stats.rds")) {
-    file.remove("data/daily_stats.rds")
+  cat("Resetting all data...\n")
+  
+  # Delete files from Google Drive
+  files_to_delete <- c("daily_stats.rds", "stretch_history.rds", "stretches.rds", "user_preferences.rds")
+  app_folder <- drive_find(DRIVE_APP_FOLDER, type = "folder", verbose = FALSE)
+  
+  if (nrow(app_folder) > 0) {
+    for (file_name in files_to_delete) {
+      file_path_gd <- file.path(DRIVE_APP_FOLDER, file_name)
+      if (nrow(drive_find(file_path_gd, verbose = FALSE)) > 0) {
+        cat("Deleting", file_name, "from Google Drive.\n")
+        drive_rm(drive_get(file_path_gd), verbose = FALSE)
+      }
+    }
+  } else {
+    cat("Google Drive application folder not found. No files to delete from Drive.\n")
   }
-  if (file.exists("data/stretch_history.rds")) {
-    file.remove("data/stretch_history.rds")
-  }
-  # Also remove stretches.rds to ensure a clean recreation from list.csv
-  if (file.exists("data/stretches.rds")) {
-    file.remove("data/stretches.rds")
-  }
+  
+  # Re-initialize data, which will create new empty files in Google Drive
   initialize_data()
+  cat("Data reset complete and re-initialized.\n")
 }
 
 # CRUD Operations for Stretch Management
@@ -348,8 +504,12 @@ add_new_stretch <- function(name, priority, category, description, enabled = TRU
     # Add the new row directly to the dataframe
     stretches[nrow(stretches) + 1, ] <- new_row
     
-    # Save to file
-    saveRDS(stretches, "data/stretches.rds")
+    # Save to Google Drive
+    file_path_gd <- file.path(DRIVE_APP_FOLDER, "stretches.rds")
+    temp_file <- tempfile(fileext = ".rds")
+    saveRDS(stretches, temp_file)
+    drive_update(file = drive_get(file_path_gd), media = temp_file, verbose = FALSE)
+    unlink(temp_file)
     
     return(list(success = TRUE, message = "Stretch added successfully"))
     
@@ -383,8 +543,12 @@ update_stretch <- function(id, name, priority, category, description, enabled = 
     stretches$description[stretch_index] <- description
     stretches$enabled[stretch_index] <- enabled
     
-    # Save to file
-    saveRDS(stretches, "data/stretches.rds")
+    # Save to Google Drive
+    file_path_gd <- file.path(DRIVE_APP_FOLDER, "stretches.rds")
+    temp_file <- tempfile(fileext = ".rds")
+    saveRDS(stretches, temp_file)
+    drive_update(file = drive_get(file_path_gd), media = temp_file, verbose = FALSE)
+    unlink(temp_file)
     
     return(list(success = TRUE, message = "Stretch updated successfully"))
     
@@ -412,13 +576,17 @@ delete_stretch <- function(id) {
     # Remove the stretch
     stretches <- stretches[-stretch_index, ]
     
-    # Save to file
-    saveRDS(stretches, "data/stretches.rds")
+    # Save to Google Drive
+    file_path_gd <- file.path(DRIVE_APP_FOLDER, "stretches.rds")
+    temp_file <- tempfile(fileext = ".rds")
+    saveRDS(stretches, temp_file)
+    drive_update(file = drive_get(file_path_gd), media = temp_file, verbose = FALSE)
+    unlink(temp_file)
     
     # Optionally clean up history for deleted stretch
     if (has_history) {
       stretch_history <- stretch_history[stretch_history$stretch_id != id, ]
-      save_stretch_history(stretch_history)
+      save_stretch_history(stretch_history) # This will now save to Google Drive
     }
     
     return(list(success = TRUE, message = "Stretch deleted successfully"))

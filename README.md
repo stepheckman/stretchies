@@ -5,10 +5,12 @@ A fun and engaging R Shiny app to help you maintain a consistent stretching rout
 ## ✨ Features
 
 - **Smart Stretch Selection**: Weighted algorithm that prioritizes high-priority stretches while ensuring variety
-- **Progress Tracking**: Track daily completions, streaks, and overall progress
+- **Progress Tracking**: Track daily completions, streaks, and overall progress, with improved reliability for the completed stretch counter.
 - **Interactive Charts**: Visualize your progress with daily, weekly, and frequency charts
 - **Motivational System**: Encouraging messages and achievement tracking
 - **Custom Stretch Database**: Uses your personal list of stretches with priority levels
+- **Enhanced Usability**: Buttons on the settings page are now at the top for easier access, and a web search button has been added to the dashboard for quick stretch lookups.
+- **Streamlined Interface**: The "Skip" button has been removed from the home screen to simplify the user experience and encourage completion.
 - **Fun UI**: Colorful, engaging interface with smooth animations
 
 ## 🚀 Quick Start
@@ -80,9 +82,10 @@ The app uses a weighted selection system that considers:
 
 ### Dashboard Tab
 - Click "Get My Stretch!" to receive a weighted-random stretch
-- Mark stretches as "Done" or "Skip" 
+- Mark stretches as "Done" to record completion. The completed stretch counter now increments reliably after pressing "Done".
 - View today's progress and current streak
 - Get motivational messages based on your progress
+- **Web Search for Stretches**: A new button has been added to allow you to quickly search for the current stretch on the web, providing easy access to demonstrations or additional information.
 
 ### Progress Tab
 - **Daily Progress**: Line chart showing stretches completed over the last 7 days
@@ -94,6 +97,7 @@ The app uses a weighted selection system that considers:
 - Comprehensive table showing completion rates for each stretch
 
 ### Settings Tab
+- The "Reset All Data" and "View App Information" buttons have been moved to the top of the settings page for easier access.
 - View and manage your stretch database
 - Reset all data if needed
 - View app information and statistics
@@ -149,8 +153,7 @@ If you encounter package installation errors:
 1. **Start Small**: Begin with 2-3 stretches per day and build up
 2. **Be Consistent**: Daily stretching, even just one stretch, is better than sporadic long sessions
 3. **Trust the Algorithm**: The app learns your patterns and will suggest stretches you need most
-4. **Use the Skip Button**: It's okay to skip stretches that don't feel right in the moment
-5. **Check Your Progress**: Regular review of your statistics can be very motivating
+4. **Check Your Progress**: Regular review of your statistics can be very motivating
 
 ## 🤝 Contributing
 

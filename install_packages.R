@@ -14,7 +14,8 @@ required_packages <- c(
   "shinycssloaders",
   "dplyr",
   "ggplot2",
-  "lubridate"
+  "lubridate",
+  "googledrive" # Added for Google Drive integration
 )
 
 # Function to install packages if not already installed

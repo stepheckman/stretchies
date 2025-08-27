@@ -1,0 +1,1500 @@
+2025-08-16T20:17:44.755521+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-16T20:17:44.760661+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-16T20:17:44.765986+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-16T20:17:44.771050+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-16T20:17:44.776132+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-16T20:17:44.781226+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-16T20:17:44.786222+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-16T20:17:44.791608+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-16T20:17:44.797201+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-16T20:17:44.802388+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-16T20:17:44.807449+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-16T20:17:44.812626+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.817873+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-16T20:17:44.823039+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.828163+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T20:17:44.833264+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.838533+00:00 shinyapps[15214823]:     box
+2025-08-16T20:17:44.843616+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.848793+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.854303+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-16T20:17:44.859962+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.865057+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-16T20:17:44.870172+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.875531+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-16T20:17:44.880737+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.885919+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-16T20:17:44.891139+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.896390+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-16T20:17:44.901424+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.906553+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-16T20:17:44.911641+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.916960+00:00 shinyapps[15214823]:     last_plot
+2025-08-16T20:17:44.922175+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.927499+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-16T20:17:44.932575+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.937850+00:00 shinyapps[15214823]:     filter
+2025-08-16T20:17:44.943025+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.948340+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T20:17:44.953374+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.958872+00:00 shinyapps[15214823]:     layout
+2025-08-16T20:17:44.964070+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.969370+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.974886+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-16T20:17:44.979971+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.984957+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-16T20:17:44.990228+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:44.995488+00:00 shinyapps[15214823]:     filter, lag
+2025-08-16T20:17:45.000588+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:45.005869+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T20:17:45.011236+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:45.016436+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-16T20:17:45.021602+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:45.026660+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:45.031517+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-16T20:17:45.036860+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:45.042033+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T20:17:45.050329+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:45.055585+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-16T20:17:45.060616+00:00 shinyapps[15214823]: 
+2025-08-16T20:17:45.065626+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-16T20:17:45.071176+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-16T20:17:45.076256+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-16T20:17:45.081869+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-16T20:17:45.086947+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-16T20:17:45.092699+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-16T20:17:45.097935+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-16T20:17:45.103054+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-16T20:17:45.108187+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-16T20:17:45.113194+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-16T20:17:45.118539+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-16T20:18:10.703139+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' not found. Creating it...
+2025-08-16T20:18:10.709306+00:00 shinyapps[15214823]: Google Drive folder created successfully.
+2025-08-16T20:18:10.714495+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-16T20:18:10.719941+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-16T20:18:10.725008+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-16T20:18:10.730411+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-16T20:18:10.735575+00:00 shinyapps[15214823]: Execution halted
+2025-08-16T20:18:10.740775+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-16T20:18:15.703068+00:00 shinyapps[15214823]: Running on host: ee1dbb21a873
+2025-08-16T20:18:15.708691+00:00 shinyapps[15214823]: Process ID: 61
+2025-08-16T20:18:15.713945+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-16T20:18:15.719220+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-16T20:18:15.725872+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-16T20:18:15.731163+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-16T20:18:15.736399+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-16T20:18:15.741559+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-16T20:18:15.747473+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-16T20:18:15.752717+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-16T20:18:15.757960+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-16T20:18:15.763124+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-16T20:18:15.768431+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-16T20:18:15.773573+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-16T20:18:15.778778+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-16T20:18:15.784088+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-16T20:18:15.789163+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-16T20:18:15.795328+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-16T20:18:15.800576+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-16T20:18:15.805730+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-16T20:18:16.702976+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-16T20:18:16.708221+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.713477+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-16T20:18:16.718839+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.723920+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T20:18:16.728911+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.734844+00:00 shinyapps[15214823]:     box
+2025-08-16T20:18:16.740051+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.745251+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.750379+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-16T20:18:16.755534+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.760622+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-16T20:18:16.765815+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.770928+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-16T20:18:16.776162+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.781153+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-16T20:18:16.786330+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.791431+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-16T20:18:16.796527+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.801654+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-16T20:18:16.806820+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.812109+00:00 shinyapps[15214823]:     last_plot
+2025-08-16T20:18:16.817317+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.822455+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-16T20:18:16.827688+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.832809+00:00 shinyapps[15214823]:     filter
+2025-08-16T20:18:16.837938+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.843008+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T20:18:16.848065+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.853157+00:00 shinyapps[15214823]:     layout
+2025-08-16T20:18:16.858174+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.863710+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.868904+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-16T20:18:16.873997+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.878995+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-16T20:18:16.884167+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.889312+00:00 shinyapps[15214823]:     filter, lag
+2025-08-16T20:18:16.894455+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.899970+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T20:18:16.905126+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:16.910365+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-16T20:18:16.915837+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:17.702623+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:17.708728+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-16T20:18:17.714320+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:17.720258+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T20:18:17.725813+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:17.731149+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-16T20:18:17.736513+00:00 shinyapps[15214823]: 
+2025-08-16T20:18:17.742157+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-16T20:18:17.747438+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-16T20:18:17.752663+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-16T20:18:17.757800+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-16T20:18:17.762997+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-16T20:18:17.768244+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-16T20:18:17.773497+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-16T20:18:17.778909+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-16T20:18:17.784302+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-16T20:18:17.789806+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-16T20:18:17.795752+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-16T20:18:44.702995+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-16T20:18:44.708396+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-16T20:18:44.713648+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-16T20:18:44.719063+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-16T20:18:44.724037+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-16T20:18:44.729394+00:00 shinyapps[15214823]: Execution halted
+2025-08-16T20:18:44.734599+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-16T21:19:36.783673+00:00 shinyapps[15214823]: Container event from container-12217664: start
+2025-08-16T21:19:40.783746+00:00 shinyapps[15214823]: Running on host: a95f8c4281d4
+2025-08-16T21:19:40.788925+00:00 shinyapps[15214823]: Process ID: 30
+2025-08-16T21:19:40.793606+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-16T21:19:40.798240+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-16T21:19:40.802902+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-16T21:19:40.807523+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-16T21:19:40.812190+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-16T21:19:40.816903+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-16T21:19:40.821683+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-16T21:19:40.826488+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-16T21:19:40.831348+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-16T21:19:40.836313+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-16T21:19:40.841246+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-16T21:19:40.846196+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-16T21:19:40.851152+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-16T21:19:40.856235+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-16T21:19:40.861270+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-16T21:19:40.866232+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-16T21:19:40.871293+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-16T21:19:40.876367+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-16T21:19:40.881180+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-16T21:19:40.886059+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.890860+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-16T21:19:40.895551+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.900267+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:19:40.904989+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.909592+00:00 shinyapps[15214823]:     box
+2025-08-16T21:19:40.914389+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.919492+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.925536+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-16T21:19:40.930506+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.935646+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-16T21:19:40.940619+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.945656+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-16T21:19:40.950737+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.955766+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-16T21:19:40.961896+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.967033+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-16T21:19:40.971994+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.977164+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-16T21:19:40.982264+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.987158+00:00 shinyapps[15214823]:     last_plot
+2025-08-16T21:19:40.992338+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:40.997169+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-16T21:19:41.001967+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.006674+00:00 shinyapps[15214823]:     filter
+2025-08-16T21:19:41.011470+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.016125+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:19:41.020808+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.025637+00:00 shinyapps[15214823]:     layout
+2025-08-16T21:19:41.030628+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.035812+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.043153+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-16T21:19:41.048319+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.053453+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-16T21:19:41.058446+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.063478+00:00 shinyapps[15214823]:     filter, lag
+2025-08-16T21:19:41.068491+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.073443+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:19:41.078334+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.083268+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-16T21:19:41.088206+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.092638+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.097337+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-16T21:19:41.101948+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.106585+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:19:41.111166+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.115983+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-16T21:19:41.120664+00:00 shinyapps[15214823]: 
+2025-08-16T21:19:41.125443+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-16T21:19:41.130236+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-16T21:19:41.135193+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-16T21:19:41.140306+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-16T21:19:41.145392+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-16T21:19:41.150597+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-16T21:19:41.155908+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-16T21:19:41.160860+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-16T21:19:41.165891+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-16T21:19:41.170933+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-16T21:19:41.175921+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-16T21:19:41.180738+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-16T21:20:08.785035+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-16T21:20:08.790439+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-16T21:20:08.795788+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-16T21:20:08.800588+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-16T21:20:08.805269+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-16T21:20:08.810047+00:00 shinyapps[15214823]: Execution halted
+2025-08-16T21:20:08.814898+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-16T21:24:43.723283+00:00 shinyapps[15214823]: Container event from container-12217682: start
+2025-08-16T21:24:44.723241+00:00 shinyapps[15214823]: Running on host: 82cb819145b5
+2025-08-16T21:24:44.728229+00:00 shinyapps[15214823]: Process ID: 32
+2025-08-16T21:24:44.732953+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-16T21:24:44.737562+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-16T21:24:44.742297+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-16T21:24:44.746935+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-16T21:24:44.751680+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-16T21:24:44.756480+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-16T21:24:44.761285+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-16T21:24:44.765885+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-16T21:24:44.770335+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-16T21:24:44.774789+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-16T21:24:44.779200+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-16T21:24:44.783715+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-16T21:24:44.788373+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-16T21:24:44.793198+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-16T21:24:44.798502+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-16T21:24:44.803327+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-16T21:24:44.811358+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-16T21:24:44.815927+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-16T21:24:44.820461+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-16T21:24:44.824957+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.829526+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-16T21:24:44.834485+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.838974+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:24:44.843460+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.848123+00:00 shinyapps[15214823]:     box
+2025-08-16T21:24:44.857649+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.862642+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.867124+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-16T21:24:44.877411+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.881996+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-16T21:24:44.887000+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.900407+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-16T21:24:44.904998+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.909719+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-16T21:24:44.914342+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.918964+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-16T21:24:44.923618+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.928241+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-16T21:24:44.932798+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.937393+00:00 shinyapps[15214823]:     last_plot
+2025-08-16T21:24:44.942101+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.960596+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-16T21:24:44.965402+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.970044+00:00 shinyapps[15214823]:     filter
+2025-08-16T21:24:44.977335+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.982738+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:24:44.987268+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:44.991899+00:00 shinyapps[15214823]:     layout
+2025-08-16T21:24:44.996505+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:45.001050+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:45.006462+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-16T21:24:45.011007+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:45.015497+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-16T21:24:45.019856+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:45.024594+00:00 shinyapps[15214823]:     filter, lag
+2025-08-16T21:24:45.029435+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:45.033882+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:24:45.051334+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:45.056080+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-16T21:24:45.061003+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:45.065741+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:45.070421+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-16T21:24:45.075365+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:45.080002+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:24:45.084647+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:45.089293+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-16T21:24:45.093746+00:00 shinyapps[15214823]: 
+2025-08-16T21:24:45.752365+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-16T21:24:45.756815+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-16T21:24:45.761296+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-16T21:24:45.765845+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-16T21:24:45.770377+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-16T21:24:45.774959+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-16T21:24:45.779757+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-16T21:24:45.785438+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-16T21:24:45.790944+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-16T21:24:45.792907+00:00 shinyapps[15214823]: Container event from container-12217664: stop
+2025-08-16T21:24:45.795538+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-16T21:24:45.800369+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-16T21:24:45.804936+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-16T21:25:14.744952+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-16T21:25:14.749562+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-16T21:25:14.754021+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-16T21:25:14.758492+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-16T21:25:14.763136+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-16T21:25:14.767504+00:00 shinyapps[15214823]: Execution halted
+2025-08-16T21:25:14.772106+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-16T21:25:15.749743+00:00 shinyapps[15214823]: Container event from container-12217683: start
+2025-08-16T21:25:19.722494+00:00 shinyapps[15214823]: Running on host: bd02fb3c0b21
+2025-08-16T21:25:19.728814+00:00 shinyapps[15214823]: Process ID: 32
+2025-08-16T21:25:19.734612+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-16T21:25:19.739695+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-16T21:25:19.744135+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-16T21:25:19.748482+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-16T21:25:19.753355+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-16T21:25:19.757629+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-16T21:25:19.762114+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-16T21:25:19.766752+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-16T21:25:19.771132+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-16T21:25:19.775640+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-16T21:25:19.780155+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-16T21:25:19.784610+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-16T21:25:19.789294+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-16T21:25:19.793753+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-16T21:25:19.798343+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-16T21:25:19.803143+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-16T21:25:19.807670+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-16T21:25:19.814475+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-16T21:25:19.819089+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-16T21:25:19.823436+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.829777+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-16T21:25:19.834347+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.839157+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:25:19.843773+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.848611+00:00 shinyapps[15214823]:     box
+2025-08-16T21:25:19.853296+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.857894+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.862667+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-16T21:25:19.867249+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.871723+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-16T21:25:19.877691+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.882079+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-16T21:25:19.886574+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.891005+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-16T21:25:19.895667+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.900187+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-16T21:25:19.905613+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.910044+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-16T21:25:19.916138+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.920610+00:00 shinyapps[15214823]:     last_plot
+2025-08-16T21:25:19.925159+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.929457+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-16T21:25:19.934016+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.938625+00:00 shinyapps[15214823]:     filter
+2025-08-16T21:25:19.943182+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.947915+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:25:19.952478+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.956843+00:00 shinyapps[15214823]:     layout
+2025-08-16T21:25:19.962123+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.968240+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.972654+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-16T21:25:19.977078+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.981630+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-16T21:25:19.986226+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:19.991045+00:00 shinyapps[15214823]:     filter, lag
+2025-08-16T21:25:19.995503+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:20.000131+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:25:20.004628+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:20.009198+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-16T21:25:20.013784+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:20.018627+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:20.023041+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-16T21:25:20.027874+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:20.032422+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:25:20.037018+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:20.042954+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-16T21:25:20.047796+00:00 shinyapps[15214823]: 
+2025-08-16T21:25:20.052405+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-16T21:25:20.057143+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-16T21:25:20.061759+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-16T21:25:20.066184+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-16T21:25:20.070656+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-16T21:25:20.075324+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-16T21:25:20.079962+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-16T21:25:20.084619+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-16T21:25:20.089291+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-16T21:25:20.093716+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-16T21:25:20.098093+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-16T21:25:20.102902+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-16T21:25:46.722882+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-16T21:25:46.727526+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-16T21:25:46.732001+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-16T21:25:46.736610+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-16T21:25:46.741066+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-16T21:25:46.745608+00:00 shinyapps[15214823]: Execution halted
+2025-08-16T21:25:46.750187+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-16T21:30:13.783475+00:00 shinyapps[15214823]: Container event from container-12217703: start
+2025-08-16T21:30:15.783700+00:00 shinyapps[15214823]: Running on host: 60667155c45c
+2025-08-16T21:30:15.789050+00:00 shinyapps[15214823]: Process ID: 31
+2025-08-16T21:30:15.794218+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-16T21:30:15.799374+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-16T21:30:15.804042+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-16T21:30:15.808908+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-16T21:30:15.813633+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-16T21:30:15.818152+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-16T21:30:15.823317+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-16T21:30:15.828409+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-16T21:30:15.833928+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-16T21:30:15.839316+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-16T21:30:15.844652+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-16T21:30:15.850131+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-16T21:30:15.855353+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-16T21:30:15.860635+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-16T21:30:15.865873+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-16T21:30:15.871160+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-16T21:30:15.876309+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-16T21:30:15.881673+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-16T21:30:15.886771+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-16T21:30:15.891794+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:15.896450+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-16T21:30:15.901705+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:15.906472+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:30:15.911282+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:15.915868+00:00 shinyapps[15214823]:     box
+2025-08-16T21:30:15.920867+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:15.926080+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:15.931401+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-16T21:30:15.936451+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:15.941748+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-16T21:30:15.947175+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:15.952504+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-16T21:30:15.957443+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:15.962757+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-16T21:30:15.968011+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:15.973397+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-16T21:30:15.978613+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:15.983834+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-16T21:30:15.988629+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:15.993131+00:00 shinyapps[15214823]:     last_plot
+2025-08-16T21:30:15.997639+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.002474+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-16T21:30:16.007510+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.012250+00:00 shinyapps[15214823]:     filter
+2025-08-16T21:30:16.016765+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.021456+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:30:16.026417+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.031738+00:00 shinyapps[15214823]:     layout
+2025-08-16T21:30:16.036771+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.041969+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.048014+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-16T21:30:16.053258+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.058367+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-16T21:30:16.063808+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.068763+00:00 shinyapps[15214823]:     filter, lag
+2025-08-16T21:30:16.073899+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.078737+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:30:16.083914+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.090441+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-16T21:30:16.095150+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.099765+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.105113+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-16T21:30:16.109902+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.114582+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:30:16.121095+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.126012+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-16T21:30:16.130979+00:00 shinyapps[15214823]: 
+2025-08-16T21:30:16.136234+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-16T21:30:16.141460+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-16T21:30:16.783065+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-16T21:30:16.788055+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-16T21:30:16.793131+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-16T21:30:16.798071+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-16T21:30:16.803866+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-16T21:30:16.808450+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-16T21:30:16.813245+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-16T21:30:16.817984+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-16T21:30:16.842439+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-16T21:30:16.847762+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-16T21:30:16.852898+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-16T21:30:16.858061+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-16T21:30:43.783592+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-16T21:30:43.788675+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-16T21:30:43.793185+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-16T21:30:43.798001+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-16T21:30:43.803206+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-16T21:30:43.807967+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-16T21:30:43.812617+00:00 shinyapps[15214823]: Execution halted
+2025-08-16T21:31:23.783330+00:00 shinyapps[15214823]: Container event from container-12217706: start
+2025-08-16T21:31:25.784122+00:00 shinyapps[15214823]: Running on host: eae95c66cc70
+2025-08-16T21:31:25.789299+00:00 shinyapps[15214823]: Process ID: 30
+2025-08-16T21:31:25.793952+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-16T21:31:25.798705+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-16T21:31:25.803673+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-16T21:31:25.808391+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-16T21:31:25.813170+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-16T21:31:25.817949+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-16T21:31:25.822687+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-16T21:31:25.828026+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-16T21:31:25.833511+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-16T21:31:25.838707+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-16T21:31:25.843863+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-16T21:31:25.848933+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-16T21:31:25.854645+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-16T21:31:25.859835+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-16T21:31:25.865431+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-16T21:31:25.870853+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-16T21:31:25.876214+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-16T21:31:25.881597+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-16T21:31:25.886557+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-16T21:31:25.891393+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:25.896267+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-16T21:31:25.901108+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:25.905904+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:31:25.910632+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:25.915805+00:00 shinyapps[15214823]:     box
+2025-08-16T21:31:25.920920+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:25.926044+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:25.931153+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-16T21:31:25.936065+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:25.941142+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-16T21:31:25.946351+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:25.951633+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-16T21:31:25.957008+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:25.962093+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-16T21:31:25.967134+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:25.972190+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-16T21:31:25.980606+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:25.985572+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-16T21:31:25.990312+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:25.995023+00:00 shinyapps[15214823]:     last_plot
+2025-08-16T21:31:25.999647+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.004348+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-16T21:31:26.009027+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.013977+00:00 shinyapps[15214823]:     filter
+2025-08-16T21:31:26.018867+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.025242+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:31:26.030375+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.035625+00:00 shinyapps[15214823]:     layout
+2025-08-16T21:31:26.040840+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.046714+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.051693+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-16T21:31:26.056756+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.061914+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-16T21:31:26.067017+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.072099+00:00 shinyapps[15214823]:     filter, lag
+2025-08-16T21:31:26.077071+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.081997+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:31:26.087171+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.092278+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-16T21:31:26.098073+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.103013+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.107720+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-16T21:31:26.112579+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.117354+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:31:26.122719+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.128161+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-16T21:31:26.134150+00:00 shinyapps[15214823]: 
+2025-08-16T21:31:26.139376+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-16T21:31:26.144813+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-16T21:31:26.150114+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-16T21:31:26.155527+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-16T21:31:26.160965+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-16T21:31:26.165964+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-16T21:31:26.171111+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-16T21:31:26.176280+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-16T21:31:26.181232+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-16T21:31:26.188890+00:00 shinyapps[15214823]: Container event from container-12217703: stop
+2025-08-16T21:31:26.783484+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-16T21:31:26.788660+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-16T21:31:26.793253+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-16T21:31:26.798211+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-16T21:31:26.803425+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-16T21:31:54.789510+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-16T21:31:54.794596+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-16T21:31:54.799272+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-16T21:31:54.803896+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-16T21:31:54.808765+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-16T21:31:54.813663+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-16T21:31:54.818245+00:00 shinyapps[15214823]: Execution halted
+2025-08-16T21:32:00.784002+00:00 shinyapps[15214823]: Running on host: eae95c66cc70
+2025-08-16T21:32:00.790356+00:00 shinyapps[15214823]: Process ID: 57
+2025-08-16T21:32:00.795660+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-16T21:32:00.800445+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-16T21:32:00.805317+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-16T21:32:00.810620+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-16T21:32:00.815215+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-16T21:32:00.819775+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-16T21:32:00.824584+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-16T21:32:00.829620+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-16T21:32:00.834580+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-16T21:32:00.839416+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-16T21:32:00.844522+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-16T21:32:00.849611+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-16T21:32:00.854594+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-16T21:32:00.859939+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-16T21:32:00.865033+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-16T21:32:00.870265+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-16T21:32:00.875420+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-16T21:32:00.880480+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-16T21:32:01.783858+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-16T21:32:01.788757+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:01.793445+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-16T21:32:01.798079+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:01.803020+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:32:01.807671+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:01.812373+00:00 shinyapps[15214823]:     box
+2025-08-16T21:32:01.817083+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:01.821777+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:01.826470+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-16T21:32:01.831301+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:01.836204+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-16T21:32:01.841319+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:01.846123+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-16T21:32:01.851104+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:01.856137+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-16T21:32:02.783190+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.788227+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-16T21:32:02.793054+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.797593+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-16T21:32:02.802252+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.807015+00:00 shinyapps[15214823]:     last_plot
+2025-08-16T21:32:02.811947+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.816508+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-16T21:32:02.821119+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.825963+00:00 shinyapps[15214823]:     filter
+2025-08-16T21:32:02.831076+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.836556+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:32:02.844514+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.851445+00:00 shinyapps[15214823]:     layout
+2025-08-16T21:32:02.857524+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.862478+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.868426+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-16T21:32:02.873575+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.878527+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-16T21:32:02.883536+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.888624+00:00 shinyapps[15214823]:     filter, lag
+2025-08-16T21:32:02.893284+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.897965+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:32:02.903079+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.908004+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-16T21:32:02.912489+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.942271+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.953130+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-16T21:32:02.961287+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.968502+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:32:02.975029+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.979971+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-16T21:32:02.985039+00:00 shinyapps[15214823]: 
+2025-08-16T21:32:02.989660+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-16T21:32:02.995072+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-16T21:32:02.999924+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-16T21:32:03.005876+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-16T21:32:03.011123+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-16T21:32:03.015815+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-16T21:32:03.020355+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-16T21:32:03.025275+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-16T21:32:03.030099+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-16T21:32:03.035110+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-16T21:32:03.040167+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-16T21:32:03.045147+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-16T21:32:03.050197+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-16T21:32:30.783354+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-16T21:32:30.793529+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-16T21:32:30.798605+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-16T21:32:30.803465+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-16T21:32:30.808181+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-16T21:32:30.812702+00:00 shinyapps[15214823]: Execution halted
+2025-08-16T21:32:30.817558+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-16T21:33:42.783300+00:00 shinyapps[15214823]: Running on host: eae95c66cc70
+2025-08-16T21:33:42.788418+00:00 shinyapps[15214823]: Process ID: 103
+2025-08-16T21:33:42.799105+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-16T21:33:42.804112+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-16T21:33:42.808954+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-16T21:33:42.813754+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-16T21:33:42.818391+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-16T21:33:42.823122+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-16T21:33:42.828031+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-16T21:33:42.833051+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-16T21:33:42.837989+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-16T21:33:42.844206+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-16T21:33:42.849136+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-16T21:33:42.854395+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-16T21:33:42.859821+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-16T21:33:42.864705+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-16T21:33:42.869730+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-16T21:33:42.874490+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-16T21:33:42.879594+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-16T21:33:42.914673+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-16T21:33:42.919915+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-16T21:33:42.924599+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:42.929965+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-16T21:33:42.935023+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:42.940147+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:33:42.944856+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:42.950112+00:00 shinyapps[15214823]:     box
+2025-08-16T21:33:42.955343+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:42.961302+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:42.966250+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-16T21:33:42.971529+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:42.976668+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-16T21:33:42.981779+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:42.987164+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-16T21:33:42.992302+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:42.997234+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-16T21:33:43.783775+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.788901+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-16T21:33:43.793840+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.798865+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-16T21:33:43.803838+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.808420+00:00 shinyapps[15214823]:     last_plot
+2025-08-16T21:33:43.812976+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.817637+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-16T21:33:43.822426+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.827507+00:00 shinyapps[15214823]:     filter
+2025-08-16T21:33:43.832892+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.837737+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:33:43.843025+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.848081+00:00 shinyapps[15214823]:     layout
+2025-08-16T21:33:43.853096+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.858133+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.863188+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-16T21:33:43.868143+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.872875+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-16T21:33:43.877868+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.883461+00:00 shinyapps[15214823]:     filter, lag
+2025-08-16T21:33:43.888160+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.893044+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:33:43.897648+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.902283+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-16T21:33:43.907000+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.911997+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.916838+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-16T21:33:43.921410+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.926096+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:33:43.932035+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.936856+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-16T21:33:43.942184+00:00 shinyapps[15214823]: 
+2025-08-16T21:33:43.947217+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-16T21:33:43.952278+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-16T21:33:43.957319+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-16T21:33:43.962578+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-16T21:33:43.967635+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-16T21:33:43.972603+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-16T21:33:43.977605+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-16T21:33:43.982456+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-16T21:33:43.987315+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-16T21:33:44.788972+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-16T21:33:44.794211+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-16T21:33:44.799150+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-16T21:33:44.803804+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-16T21:34:12.783308+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-16T21:34:12.788369+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-16T21:34:12.793475+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-16T21:34:12.798215+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-16T21:34:12.802975+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-16T21:34:12.807799+00:00 shinyapps[15214823]: Execution halted
+2025-08-16T21:34:12.812290+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-16T21:50:06.783624+00:00 shinyapps[15214823]: Container event from container-12217706: stop
+2025-08-16T21:50:40.783312+00:00 shinyapps[15214823]: Running on host: b5b01f77270e
+2025-08-16T21:50:40.792171+00:00 shinyapps[15214823]: Process ID: 31
+2025-08-16T21:50:40.797126+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-16T21:50:40.801998+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-16T21:50:40.806964+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-16T21:50:40.811765+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-16T21:50:40.817563+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-16T21:50:40.822241+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-16T21:50:40.826965+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-16T21:50:40.831947+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-16T21:50:40.837480+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-16T21:50:40.842610+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-16T21:50:40.847747+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-16T21:50:40.852757+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-16T21:50:40.857808+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-16T21:50:40.862806+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-16T21:50:40.867944+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-16T21:50:40.873007+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-16T21:50:40.877767+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-16T21:50:40.883029+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-16T21:50:40.888692+00:00 shinyapps[15214823]: Container event from container-12217706: start
+2025-08-16T21:50:41.783708+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-16T21:50:41.788974+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:41.794630+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-16T21:50:41.799853+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:41.804931+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:50:41.809708+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:41.814757+00:00 shinyapps[15214823]:     box
+2025-08-16T21:50:41.819415+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:41.824042+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:41.829582+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-16T21:50:41.834500+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:41.839944+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-16T21:50:41.845466+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:41.850621+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-16T21:50:41.855573+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:41.860586+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-16T21:50:42.783290+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.788580+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-16T21:50:42.793989+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.798538+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-16T21:50:42.803501+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.808189+00:00 shinyapps[15214823]:     last_plot
+2025-08-16T21:50:42.813227+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.817893+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-16T21:50:42.822774+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.827968+00:00 shinyapps[15214823]:     filter
+2025-08-16T21:50:42.833194+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.838415+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-16T21:50:42.843648+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.848648+00:00 shinyapps[15214823]:     layout
+2025-08-16T21:50:42.853546+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.858491+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.863468+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-16T21:50:42.868503+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.873490+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-16T21:50:42.878367+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.883234+00:00 shinyapps[15214823]:     filter, lag
+2025-08-16T21:50:42.888017+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.892811+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:50:42.898298+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.903012+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-16T21:50:42.907725+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.912446+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.916967+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-16T21:50:42.922290+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.927857+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-16T21:50:42.932799+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.939335+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-16T21:50:42.950543+00:00 shinyapps[15214823]: 
+2025-08-16T21:50:42.956083+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-16T21:50:42.961274+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-16T21:50:42.967504+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-16T21:50:42.974400+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-16T21:50:42.979474+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-16T21:50:42.985453+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-16T21:50:42.990636+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-16T21:50:42.996091+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-16T21:50:43.001118+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-16T21:50:43.784157+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-16T21:50:43.789108+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-16T21:50:43.794185+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-16T21:50:43.800025+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-16T21:50:43.804839+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-16T21:51:10.783842+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-16T21:51:10.789381+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-16T21:51:10.794634+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-16T21:51:10.800737+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-16T21:51:10.805418+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-16T21:51:10.810410+00:00 shinyapps[15214823]: Execution halted
+2025-08-16T21:51:10.815561+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-16T22:07:06.783366+00:00 shinyapps[15214823]: Container event from container-12217706: stop
+2025-08-17T15:16:26.875507+00:00 shinyapps[15214823]: Container event from container-12220815: start
+2025-08-17T15:16:29.874364+00:00 shinyapps[15214823]: Running on host: cca6bee8c800
+2025-08-17T15:16:29.880025+00:00 shinyapps[15214823]: Process ID: 33
+2025-08-17T15:16:29.885259+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-17T15:16:29.890797+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-17T15:16:29.896095+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-17T15:16:29.901508+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-17T15:16:29.906861+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-17T15:16:29.912098+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-17T15:16:29.917753+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-17T15:16:29.923091+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-17T15:16:29.928629+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-17T15:16:29.933871+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-17T15:16:29.939245+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-17T15:16:29.944638+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-17T15:16:29.949941+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-17T15:16:29.955442+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-17T15:16:29.960785+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-17T15:16:29.966074+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-17T15:16:29.971661+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-17T15:16:29.977321+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-17T15:16:29.982537+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-17T15:16:29.987991+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:29.993418+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-17T15:16:29.998794+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.004058+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-17T15:16:30.009225+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.014578+00:00 shinyapps[15214823]:     box
+2025-08-17T15:16:30.019922+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.025372+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.030714+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-17T15:16:30.036349+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.041639+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-17T15:16:30.046794+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.051979+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-17T15:16:30.057237+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.062841+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-17T15:16:30.067999+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.073718+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-17T15:16:30.079162+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.084567+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-17T15:16:30.089874+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.095241+00:00 shinyapps[15214823]:     last_plot
+2025-08-17T15:16:30.100506+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.105965+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-17T15:16:30.111270+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.116878+00:00 shinyapps[15214823]:     filter
+2025-08-17T15:16:30.122461+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.127902+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-17T15:16:30.133255+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.138584+00:00 shinyapps[15214823]:     layout
+2025-08-17T15:16:30.143910+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.149093+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.155055+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-17T15:16:30.160292+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.165758+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-17T15:16:30.170965+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.176168+00:00 shinyapps[15214823]:     filter, lag
+2025-08-17T15:16:30.181509+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.186645+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-17T15:16:30.191959+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.197215+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-17T15:16:30.202492+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.207721+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.212944+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-17T15:16:30.218126+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.223317+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-17T15:16:30.228417+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.233553+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-17T15:16:30.238561+00:00 shinyapps[15214823]: 
+2025-08-17T15:16:30.243628+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-17T15:16:30.248740+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-17T15:16:30.254085+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-17T15:16:30.259359+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-17T15:16:30.264828+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-17T15:16:30.270343+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-17T15:16:30.275534+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-17T15:16:30.281028+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-17T15:16:30.286596+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-17T15:16:30.292042+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-17T15:16:30.297559+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-17T15:16:30.302829+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-17T15:16:30.308596+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-17T15:16:30.314324+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-17T15:17:00.874625+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-17T15:17:00.880356+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-17T15:17:00.885847+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-17T15:17:00.891263+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-17T15:17:00.896844+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-17T15:17:00.902361+00:00 shinyapps[15214823]: Execution halted
+2025-08-17T15:17:00.908364+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-17T15:24:09.873688+00:00 shinyapps[15214823]: Running on host: cca6bee8c800
+2025-08-17T15:24:09.904287+00:00 shinyapps[15214823]: Process ID: 164
+2025-08-17T15:24:09.908758+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-17T15:24:09.913420+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-17T15:24:09.918002+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-17T15:24:09.923021+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-17T15:24:09.927897+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-17T15:24:09.932493+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-17T15:24:09.937460+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-17T15:24:09.942076+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-17T15:24:09.946759+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-17T15:24:09.951599+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-17T15:24:09.956239+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-17T15:24:09.960824+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-17T15:24:09.965345+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-17T15:24:09.969930+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-17T15:24:09.974722+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-17T15:24:09.979378+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-17T15:24:09.984695+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-17T15:24:09.989501+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-17T15:24:10.874831+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-17T15:24:10.879526+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.884159+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-17T15:24:10.888742+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.893529+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-17T15:24:10.899360+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.903993+00:00 shinyapps[15214823]:     box
+2025-08-17T15:24:10.908497+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.913079+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.917842+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-17T15:24:10.922293+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.927237+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-17T15:24:10.931791+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.936388+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-17T15:24:10.941014+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.945634+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-17T15:24:10.950157+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.954592+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-17T15:24:10.959229+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.963985+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-17T15:24:10.968407+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.972790+00:00 shinyapps[15214823]:     last_plot
+2025-08-17T15:24:10.977423+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.982831+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-17T15:24:10.987358+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:10.991846+00:00 shinyapps[15214823]:     filter
+2025-08-17T15:24:10.996409+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.000927+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-17T15:24:11.005392+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.009943+00:00 shinyapps[15214823]:     layout
+2025-08-17T15:24:11.014545+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.019083+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.023736+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-17T15:24:11.028194+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.032901+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-17T15:24:11.037489+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.041927+00:00 shinyapps[15214823]:     filter, lag
+2025-08-17T15:24:11.046391+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.051121+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-17T15:24:11.055623+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.060091+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-17T15:24:11.064729+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.069391+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.073948+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-17T15:24:11.078388+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.082938+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-17T15:24:11.087322+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.091905+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-17T15:24:11.096575+00:00 shinyapps[15214823]: 
+2025-08-17T15:24:11.101233+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-17T15:24:11.105866+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-17T15:24:11.874921+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-17T15:24:11.879779+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-17T15:24:11.885508+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-17T15:24:11.890222+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-17T15:24:11.894722+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-17T15:24:11.899177+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-17T15:24:11.903611+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-17T15:24:11.907937+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-17T15:24:11.912379+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-17T15:24:11.917016+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-17T15:24:11.921460+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-17T15:24:48.882421+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-17T15:24:48.887143+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-17T15:24:48.891469+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-17T15:24:48.896128+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-17T15:24:48.900884+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-17T15:24:48.905258+00:00 shinyapps[15214823]: Execution halted
+2025-08-17T15:24:48.909750+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-17T15:25:09.873820+00:00 shinyapps[15214823]: Running on host: a6d901392980
+2025-08-17T15:25:09.878746+00:00 shinyapps[15214823]: Process ID: 30
+2025-08-17T15:25:09.883173+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-17T15:25:09.887654+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-17T15:25:09.892427+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-17T15:25:09.897000+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-17T15:25:09.903420+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-17T15:25:09.908215+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-17T15:25:09.913031+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-17T15:25:09.917603+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-17T15:25:09.922307+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-17T15:25:09.926736+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-17T15:25:09.931543+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-17T15:25:09.936044+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-17T15:25:09.940725+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-17T15:25:09.945317+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-17T15:25:09.949906+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-17T15:25:09.954550+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-17T15:25:09.959038+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-17T15:25:09.964149+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-17T15:25:09.969074+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-17T15:25:09.973651+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:09.978248+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-17T15:25:09.983118+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:09.987688+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-17T15:25:09.992272+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:09.996889+00:00 shinyapps[15214823]:     box
+2025-08-17T15:25:10.001467+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.006331+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.010796+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-17T15:25:10.015557+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.020201+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-17T15:25:10.024944+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.029583+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-17T15:25:10.034223+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.038877+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-17T15:25:10.043363+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.047820+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-17T15:25:10.052403+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.056962+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-17T15:25:10.062371+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.067109+00:00 shinyapps[15214823]:     last_plot
+2025-08-17T15:25:10.071577+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.076302+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-17T15:25:10.080916+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.085877+00:00 shinyapps[15214823]:     filter
+2025-08-17T15:25:10.090997+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.095520+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-17T15:25:10.100332+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.105035+00:00 shinyapps[15214823]:     layout
+2025-08-17T15:25:10.110615+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.115358+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.119979+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-17T15:25:10.124619+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.129447+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-17T15:25:10.135179+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.139791+00:00 shinyapps[15214823]:     filter, lag
+2025-08-17T15:25:10.144424+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.149051+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-17T15:25:10.153602+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.158128+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-17T15:25:10.162902+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.167351+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.171915+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-17T15:25:10.176507+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.181033+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-17T15:25:10.185918+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.190476+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-17T15:25:10.196218+00:00 shinyapps[15214823]: 
+2025-08-17T15:25:10.200734+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-17T15:25:10.205422+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-17T15:25:10.210082+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-17T15:25:10.214806+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-17T15:25:10.219383+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-17T15:25:10.224120+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-17T15:25:10.228776+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-17T15:25:10.233675+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-17T15:25:10.238320+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-17T15:25:10.242790+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-17T15:25:10.247144+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-17T15:25:10.251790+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-17T15:25:10.256361+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-17T15:25:10.261121+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-17T15:25:39.874060+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-17T15:25:39.878943+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-17T15:25:39.883329+00:00 shinyapps[15214823]: Error in drive_has_file(stretches_path_gd) : 
+2025-08-17T15:25:39.887697+00:00 shinyapps[15214823]:   could not find function "drive_has_file"
+2025-08-17T15:25:39.892188+00:00 shinyapps[15214823]: Calls: local ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+2025-08-17T15:25:39.896552+00:00 shinyapps[15214823]: Execution halted
+2025-08-17T15:25:39.901074+00:00 shinyapps[15214823]: Shiny application exiting ...
+2025-08-17T15:27:40.158487+00:00 shinyapps[15214823]: Container event from container-12220862: start
+2025-08-17T15:27:43.126167+00:00 shinyapps[15214823]: Running on host: 0a13d6b1d7b2
+2025-08-17T15:27:43.135270+00:00 shinyapps[15214823]: Process ID: 34
+2025-08-17T15:27:43.142511+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-17T15:27:43.147703+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-17T15:27:43.154759+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-17T15:27:43.159435+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-17T15:27:43.164479+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-17T15:27:43.169840+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-17T15:27:43.175840+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-17T15:27:43.181522+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-17T15:27:43.186397+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-17T15:27:43.191633+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-17T15:27:43.196997+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-17T15:27:43.202268+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-17T15:27:43.207441+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-17T15:27:43.213420+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-17T15:27:43.218811+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-17T15:27:43.223747+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-17T15:27:43.228646+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-17T15:27:43.233833+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-17T15:27:43.238425+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-17T15:27:43.243253+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.248357+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-17T15:27:43.253249+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.258046+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-17T15:27:43.262917+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.267809+00:00 shinyapps[15214823]:     box
+2025-08-17T15:27:43.272561+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.278438+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.283550+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-17T15:27:43.288444+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.293408+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-17T15:27:43.298294+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.303117+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-17T15:27:43.308051+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.312943+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-17T15:27:43.317598+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.322501+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-17T15:27:43.327435+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.332090+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-17T15:27:43.337062+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.342272+00:00 shinyapps[15214823]:     last_plot
+2025-08-17T15:27:43.347308+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.352212+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-17T15:27:43.357045+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.361799+00:00 shinyapps[15214823]:     filter
+2025-08-17T15:27:43.366774+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.371731+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-17T15:27:43.376600+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.381330+00:00 shinyapps[15214823]:     layout
+2025-08-17T15:27:43.386285+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.391341+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.396142+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-17T15:27:43.400756+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.405450+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-17T15:27:43.410891+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.415797+00:00 shinyapps[15214823]:     filter, lag
+2025-08-17T15:27:43.420597+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.425452+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-17T15:27:43.430891+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.436307+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-17T15:27:43.441650+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.447374+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.452409+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-17T15:27:43.457192+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.461730+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-17T15:27:43.466486+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.471018+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-17T15:27:43.475731+00:00 shinyapps[15214823]: 
+2025-08-17T15:27:43.480699+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-17T15:27:43.485344+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-17T15:27:43.490552+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-17T15:27:43.495222+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-17T15:27:43.499737+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-17T15:27:43.505934+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-17T15:27:43.511076+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-17T15:27:43.516077+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-17T15:27:43.520903+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-17T15:27:43.525864+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-17T15:27:43.530888+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-17T15:27:43.536066+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-17T15:27:43.541246+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-17T15:27:43.546189+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-17T15:28:11.126026+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-17T15:28:11.131083+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-17T15:29:54.125135+00:00 shinyapps[15214823]: Container event from container-12220868: start
+2025-08-17T15:29:56.125458+00:00 shinyapps[15214823]: Container event from container-12220862: stop
+2025-08-17T15:29:58.125293+00:00 shinyapps[15214823]: Running on host: f172c4dcb175
+2025-08-17T15:29:58.130425+00:00 shinyapps[15214823]: Process ID: 32
+2025-08-17T15:29:58.135691+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-17T15:29:58.140731+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-17T15:29:58.145896+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-17T15:29:58.151092+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-17T15:29:58.156547+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-17T15:29:58.161321+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-17T15:29:58.166605+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-17T15:29:58.171685+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-17T15:29:58.176717+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-17T15:29:58.181747+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-17T15:29:58.186841+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-17T15:29:58.191914+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-17T15:29:58.196800+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-17T15:29:58.201793+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-17T15:29:58.206981+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-17T15:29:58.212848+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-17T15:29:58.217838+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-17T15:29:58.223026+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-17T15:29:58.227973+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-17T15:29:58.232875+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.237859+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-17T15:29:58.242647+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.247488+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-17T15:29:58.252274+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.257283+00:00 shinyapps[15214823]:     box
+2025-08-17T15:29:58.262107+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.267231+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.272084+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-17T15:29:58.276774+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.281457+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-17T15:29:58.287222+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.292192+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-17T15:29:58.297123+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.302541+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-17T15:29:58.307509+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.312468+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-17T15:29:58.317586+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.323179+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-17T15:29:58.327925+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.332914+00:00 shinyapps[15214823]:     last_plot
+2025-08-17T15:29:58.338075+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.343080+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-17T15:29:58.348100+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.353055+00:00 shinyapps[15214823]:     filter
+2025-08-17T15:29:58.358635+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.363507+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-17T15:29:58.368276+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.373233+00:00 shinyapps[15214823]:     layout
+2025-08-17T15:29:58.378174+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.383035+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.390054+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-17T15:29:58.394841+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.399584+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-17T15:29:58.404633+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.409783+00:00 shinyapps[15214823]:     filter, lag
+2025-08-17T15:29:58.414930+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.420552+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-17T15:29:58.425504+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.430376+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-17T15:29:58.435353+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.440260+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.445259+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-17T15:29:58.449857+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.454707+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-17T15:29:58.459737+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.464793+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-17T15:29:58.470317+00:00 shinyapps[15214823]: 
+2025-08-17T15:29:58.475652+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-17T15:29:58.480654+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-17T15:29:58.485724+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-17T15:29:58.491069+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-17T15:29:58.496222+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-17T15:29:58.502592+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-17T15:29:58.509544+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-17T15:29:58.514462+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-17T15:29:58.519688+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-17T15:29:58.525008+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-17T15:29:58.530984+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-17T15:29:58.536100+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-17T15:29:58.541498+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-17T15:29:58.546330+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-17T15:30:25.125823+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-17T15:30:25.131148+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
+2025-08-20T12:51:30.742148+00:00 shinyapps[15214823]: Container event from container-12220868: start
+2025-08-20T12:51:34.741849+00:00 shinyapps[15214823]: Running on host: 32c2fbc9cbc3
+2025-08-20T12:51:34.748890+00:00 shinyapps[15214823]: Process ID: 32
+2025-08-20T12:51:34.753952+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-20T12:51:34.759275+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-20T12:51:34.764612+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-20T12:51:34.769602+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-20T12:51:34.774606+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-20T12:51:34.779532+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-20T12:51:34.784439+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-20T12:51:34.789538+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-20T12:51:34.794317+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-20T12:51:34.799238+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-20T12:51:34.804199+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-20T12:51:34.809154+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-20T12:51:34.814445+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-20T12:51:34.819363+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-20T12:51:34.824524+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-20T12:51:34.830085+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-20T12:51:34.834988+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-20T12:51:34.840104+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-20T12:51:34.844903+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-20T12:51:34.849902+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.855654+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-20T12:51:34.860705+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.871532+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-20T12:51:34.877991+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.883166+00:00 shinyapps[15214823]:     box
+2025-08-20T12:51:34.887972+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.893144+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.898096+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-20T12:51:34.903327+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.908396+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-20T12:51:34.913293+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.918108+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-20T12:51:34.925020+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.929916+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-20T12:51:34.934823+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.939972+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-20T12:51:34.944812+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.951209+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-20T12:51:34.956293+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.961544+00:00 shinyapps[15214823]:     last_plot
+2025-08-20T12:51:34.966964+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.972035+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-20T12:51:34.977078+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.982091+00:00 shinyapps[15214823]:     filter
+2025-08-20T12:51:34.987675+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:34.992438+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-20T12:51:34.997501+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.002553+00:00 shinyapps[15214823]:     layout
+2025-08-20T12:51:35.007629+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.012575+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.017782+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-20T12:51:35.022889+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.028153+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-20T12:51:35.033195+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.038073+00:00 shinyapps[15214823]:     filter, lag
+2025-08-20T12:51:35.043087+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.049425+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-20T12:51:35.054459+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.059536+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-20T12:51:35.064499+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.069357+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.074641+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-20T12:51:35.080212+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.085035+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-20T12:51:35.089672+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.094583+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-20T12:51:35.099735+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:35.104571+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-20T12:51:35.109447+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-20T12:51:35.114241+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-20T12:51:35.119339+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-20T12:51:35.124422+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-20T12:51:35.129287+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-20T12:51:35.134225+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-20T12:51:35.139127+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-20T12:51:35.144202+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-20T12:51:35.149210+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-20T12:51:35.154078+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-20T12:51:35.159038+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-20T12:51:35.163953+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-20T12:51:35.169153+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-20T12:51:44.843416+00:00 shinyapps[15214823]: Running on host: 246e4a8bd6dd
+2025-08-20T12:51:44.848810+00:00 shinyapps[15214823]: Process ID: 33
+2025-08-20T12:51:44.854001+00:00 shinyapps[15214823]: Running as user: uid=10001(shiny) gid=10001(shiny) groups=10001(shiny)
+2025-08-20T12:51:44.859155+00:00 shinyapps[15214823]: Connect version: 2025.02.0
+2025-08-20T12:51:44.864105+00:00 shinyapps[15214823]: LANG: C.UTF-8
+2025-08-20T12:51:44.869117+00:00 shinyapps[15214823]: Working directory: /srv/connect/apps/stretchies
+2025-08-20T12:51:44.874454+00:00 shinyapps[15214823]: Using R 4.4.3
+2025-08-20T12:51:44.881045+00:00 shinyapps[15214823]: R.home(): /opt/R/4.4.3/lib/R
+2025-08-20T12:51:44.886180+00:00 shinyapps[15214823]: Content will use current R environment
+2025-08-20T12:51:44.891160+00:00 shinyapps[15214823]: R_LIBS: (unset)
+2025-08-20T12:51:44.897170+00:00 shinyapps[15214823]: .libPaths(): /usr/lib/R, /opt/R/4.4.3/lib/R/library
+2025-08-20T12:51:44.903046+00:00 shinyapps[15214823]: shiny version: 1.10.0
+2025-08-20T12:51:44.908727+00:00 shinyapps[15214823]: httpuv version: 1.6.15
+2025-08-20T12:51:44.914295+00:00 shinyapps[15214823]: rmarkdown version: 2.29
+2025-08-20T12:51:44.919567+00:00 shinyapps[15214823]: knitr version: 1.49
+2025-08-20T12:51:44.924909+00:00 shinyapps[15214823]: jsonlite version: 1.9.1
+2025-08-20T12:51:44.930321+00:00 shinyapps[15214823]: RJSONIO version: (none)
+2025-08-20T12:51:44.935572+00:00 shinyapps[15214823]: htmltools version: 0.5.8.1
+2025-08-20T12:51:44.940753+00:00 shinyapps[15214823]: reticulate version: (none)
+2025-08-20T12:51:44.945777+00:00 shinyapps[15214823]: Using pandoc: /opt/connect/ext/pandoc/2.16
+2025-08-20T12:51:44.950938+00:00 shinyapps[15214823]: Shiny application starting ...
+2025-08-20T12:51:44.956641+00:00 shinyapps[15214823]: Container event from container-12239448: start
+2025-08-20T12:51:45.741665+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.746964+00:00 shinyapps[15214823]: Attaching package: ‘shinydashboard’
+2025-08-20T12:51:45.752105+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.757362+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-20T12:51:45.762342+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.767397+00:00 shinyapps[15214823]:     box
+2025-08-20T12:51:45.772261+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.777164+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.782170+00:00 shinyapps[15214823]: Attaching package: ‘DT’
+2025-08-20T12:51:45.787412+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.792343+00:00 shinyapps[15214823]: The following objects are masked from ‘package:shiny’:
+2025-08-20T12:51:45.797569+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.802523+00:00 shinyapps[15214823]:     dataTableOutput, renderDataTable
+2025-08-20T12:51:45.807421+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.812212+00:00 shinyapps[15214823]: Loading required package: ggplot2
+2025-08-20T12:51:45.817424+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.822248+00:00 shinyapps[15214823]: Attaching package: ‘plotly’
+2025-08-20T12:51:45.827142+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.832044+00:00 shinyapps[15214823]: The following object is masked from ‘package:ggplot2’:
+2025-08-20T12:51:45.836846+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.842104+00:00 shinyapps[15214823]:     last_plot
+2025-08-20T12:51:45.847117+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.852163+00:00 shinyapps[15214823]: The following object is masked from ‘package:stats’:
+2025-08-20T12:51:45.857062+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.861875+00:00 shinyapps[15214823]:     filter
+2025-08-20T12:51:45.866790+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.871758+00:00 shinyapps[15214823]: The following object is masked from ‘package:graphics’:
+2025-08-20T12:51:45.876598+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.882579+00:00 shinyapps[15214823]:     layout
+2025-08-20T12:51:45.887513+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.895882+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.900869+00:00 shinyapps[15214823]: Attaching package: ‘dplyr’
+2025-08-20T12:51:45.905883+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.910790+00:00 shinyapps[15214823]: The following objects are masked from ‘package:stats’:
+2025-08-20T12:51:45.915990+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.920795+00:00 shinyapps[15214823]:     filter, lag
+2025-08-20T12:51:45.925913+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.931127+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-20T12:51:45.936941+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.942689+00:00 shinyapps[15214823]:     intersect, setdiff, setequal, union
+2025-08-20T12:51:45.947995+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.953169+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.958031+00:00 shinyapps[15214823]: Attaching package: ‘lubridate’
+2025-08-20T12:51:45.963492+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.968512+00:00 shinyapps[15214823]: The following objects are masked from ‘package:base’:
+2025-08-20T12:51:45.973634+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.978665+00:00 shinyapps[15214823]:     date, intersect, setdiff, union
+2025-08-20T12:51:45.984020+00:00 shinyapps[15214823]: 
+2025-08-20T12:51:45.989107+00:00 shinyapps[15214823]: Attempting to load googledrive library...
+2025-08-20T12:51:45.994470+00:00 shinyapps[15214823]: googledrive library loaded successfully.
+2025-08-20T12:51:45.999391+00:00 shinyapps[15214823]: Starting Google Drive authentication...
+2025-08-20T12:51:46.004335+00:00 shinyapps[15214823]: DEBUG: R_SHINY_APP_NAME:  
+2025-08-20T12:51:46.010826+00:00 shinyapps[15214823]: DEBUG: rsconnect.shinyapps.io.account option: 
+2025-08-20T12:51:46.016223+00:00 shinyapps[15214823]: DEBUG: Running locally. Attempting interactive/cached auth...
+2025-08-20T12:51:46.742533+00:00 shinyapps[15214823]: ℹ The googledrive package is using a cached token for 'steph.eckman@gmail.com'.
+2025-08-20T12:51:46.747617+00:00 shinyapps[15214823]: Google Drive authentication successful using cached token or interactive auth locally.
+2025-08-20T12:51:46.752808+00:00 shinyapps[15214823]: Checking for Google Drive application folder...
+2025-08-20T12:51:46.757910+00:00 shinyapps[15214823]: Warning: The `verbose` argument of `drive_find()` is deprecated as of googledrive 2.0.0.
+2025-08-20T12:51:46.762673+00:00 shinyapps[15214823]: ℹ Set `options(googledrive_quiet = TRUE)` to suppress all googledrive messages.
+2025-08-20T12:51:46.767734+00:00 shinyapps[15214823]: ℹ For finer control, use `local_drive_quiet()` or `with_drive_quiet()`.
+2025-08-20T12:51:46.772525+00:00 shinyapps[15214823]: ℹ googledrive's `verbose` argument will be removed in the future.
+2025-08-20T12:51:46.777774+00:00 shinyapps[15214823]: Auto-refreshing stale OAuth token.
+2025-08-20T12:52:23.749771+00:00 shinyapps[15214823]: Google Drive folder ' StretchiesAppData ' already exists.
+2025-08-20T12:52:23.760264+00:00 shinyapps[15214823]: Checking for stretches.rds in Google Drive...
