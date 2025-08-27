@@ -1,6 +1,10 @@
 # Helper Functions for Stretch Tracker App
 # Contains algorithms, statistics, and chart generation functions
 
+# Load required database libraries (for compatibility)
+library(DBI)
+library(RSQLite)
+
 # Smart stretch selection algorithm
 select_next_stretch <- function() {
   stretches <- load_stretches_data()
