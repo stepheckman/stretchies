@@ -357,7 +357,7 @@ server <- function(input, output, session) {
     if (!is.null(values$current_stretch)) {
       search_query <- URLencode(paste("stretch exercise", values$current_stretch$name), reserved = TRUE)
       search_url <- paste0("https://www.google.com/search?q=", search_query)
-      browseURL(search_url)
+      shinyjs::runjs(paste0("window.open('", search_url, "', '_blank');"))
       showNotification(paste("Searching for:", values$current_stretch$name), type = "message", duration = 3)
     } else {
       showNotification("No stretch currently displayed to search for.", type = "warning", duration = 3)

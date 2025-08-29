@@ -211,20 +211,91 @@ initialize_data <- function() {
   dbDisconnect(con)
   
   if (stretch_count == 0) {
-    cat("Stretches table is empty, populating from CSV...\n")
     create_stretch_dataset()
   } else {
-    cat("Found", stretch_count, "stretches in database\n")
+    # No change needed, original message was fine
+  }
+}
+
+# Create initial stretch dataset from CSV file and insert into database
+create_stretch_dataset <- function() {
+  # Read the CSV file
+  if (file.exists("list.csv")) {
+    csv_data <- read.csv("list.csv", stringsAsFactors = FALSE)
+    
+    # Create descriptions for each stretch
+    descriptions <- c(
+      "Strengthen glutes and hamstrings while engaging core",
+      "Stretch hip flexors with coaching guidance for proper form",
+      "Advanced yoga pose that strengthens shoulders and opens chest",
+      "Essential stretch for tight hip flexors from sitting",
+      "Use foam roller to release tension in hamstring muscles",
+      "Dynamic movement combining plank with cardio element",
+      "Stretch calf muscles to improve ankle mobility",
+      "Roll glute muscles to release tension and improve mobility",
+      "Core exercise that challenges stability and coordination",
+      "Gentle yoga pose that opens hips and releases lower back",
+      "Forward fold with shoulder opener for upper body release",
+      "Stretch toes and feet by sitting back on heels",
+      "Transition from high to low plank for core strength",
+      "Tabletop position with toe touches for core activation",
+      "Use foam roller to release calf muscle tension",
+      "Reverse plank pose that strengthens posterior chain",
+      "Quadruped exercise for core stability and coordination",
+      "Plank variation with knee-to-elbow movement",
+      "Side-lying exercise to strengthen hip abductors",
+      "Fundamental movement pattern for leg strength",
+      "Hamstring stretch in seated position with forward fold",
+      "Intense plank variation for maximum core engagement",
+      "Spinal mobility exercise with twisting motion",
+      "Single-leg balance exercise for calf strength",
+      "Back extension exercise in prone position",
+      "Hip stretch in figure-4 position",
+      "Hip mobility exercise with lifting motion",
+      "Seated spinal rotation for thoracic mobility",
+      "Side-stepping exercise with resistance band",
+      "Hip abduction exercise with resistance band",
+      "Deep squat hold for hip and ankle mobility",
+      "Stretch chest muscles to counteract forward posture",
+      "Functional movement from lying to standing",
+      "Foot and ankle mobility exercise using ball"
+    )
+    
+    # Connect to database
+    con <- get_db_connection()
+    
+    # Insert stretches into database
+    for (i in 1:nrow(csv_data)) {
+      dbExecute(con, "
+        INSERT OR IGNORE INTO stretches (id, name, priority, category, description, enabled)
+        VALUES (?, ?, ?, ?, ?, ?)
+      ", params = list(
+        i,
+        csv_data$Stretch[i],
+        tolower(csv_data$Priority[i]),
+        categorize_stretch(csv_data$Stretch[i]),
+        descriptions[i],
+        TRUE
+      ))
+    }
+    
+    # Get count of inserted stretches
+    stretch_count <- dbGetQuery(con, "SELECT COUNT(*) as count FROM stretches")$count
+    
+    dbDisconnect(con)
+    
+    return(TRUE)
+  } else {
+    # Fallback if CSV doesn't exist
+    stop("list.csv file not found. Please ensure the file exists in the app directory.")
   }
 }
 
 # Load functions
 load_stretches_data <- function() {
-  cat("load_stretches_data called.\n")
   con <- get_db_connection()
   data <- dbGetQuery(con, "SELECT * FROM stretches ORDER BY id")
   dbDisconnect(con)
-  cat("Loaded", nrow(data), "stretches from database\n")
   return(data)
 }
 
