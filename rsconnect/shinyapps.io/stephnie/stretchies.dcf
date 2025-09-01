@@ -5,6 +5,6 @@ account: stephnie
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 15214823
-bundleId: 10833907
+bundleId: 10840922
 url: https://stephnie.shinyapps.io/stretchies/
 version: 1

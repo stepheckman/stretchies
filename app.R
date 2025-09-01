@@ -36,45 +36,49 @@ ui <- dashboardPage(
   ),
   
   dashboardBody(
-    # Custom CSS for fun styling
+    # Custom CSS for dark theme styling
     tags$head(
       tags$style(HTML("
         .content-wrapper, .right-side {
-          background-color: #f4f7ff;
+          background-color: #282c34;
+          color: #abb2bf;
         }
         .main-header .navbar {
-          background-color: #667eea !important;
+          background-color: #21252b !important;
         }
         .main-header .logo {
-          background-color: #667eea !important;
+          background-color: #21252b !important;
         }
         .skin-blue .main-sidebar {
-          background-color: #764ba2;
+          background-color: #21252b;
         }
         .stretch-card {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
+          background-color: #3a3f4b;
+          color: #abb2bf;
           border-radius: 15px;
           padding: 20px;
           margin: 10px 0;
           text-align: center;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+          box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+          border: 1px solid #4a5568;
         }
         .stretch-name {
           font-size: 24px;
           font-weight: bold;
           margin-bottom: 10px;
+          color: #ffffff;
         }
         .stretch-description {
           font-size: 16px;
           opacity: 0.9;
           margin-bottom: 20px;
+          color: #abb2bf;
         }
         .action-buttons {
           margin-top: 20px;
         }
         .btn-stretch {
-          background: linear-gradient(45deg, #ff6b6b, #ffa500);
+          background-color: #61afef;
           border: none;
           color: white;
           font-size: 18px;
@@ -84,31 +88,61 @@ ui <- dashboardPage(
           transition: all 0.3s ease;
         }
         .btn-stretch:hover {
+          background-color: #4a9eff;
           transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+          box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
         .btn-done {
-          background: linear-gradient(45deg, #4ecdc4, #44a08d);
+          background-color: #98c379;
+        }
+        .btn-done:hover {
+          background-color: #7fb069;
         }
         .btn-skip {
-          background: linear-gradient(45deg, #ffeaa7, #fdcb6e);
+          background-color: #e5c07b;
+          color: #282c34;
+        }
+        .btn-skip:hover {
+          background-color: #d4af37;
         }
         .stats-box {
-          background: white;
+          background-color: #3a3f4b;
+          color: #abb2bf;
           border-radius: 10px;
           padding: 15px;
           margin: 10px 0;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+          border: 1px solid #4a5568;
         }
         .motivational-message {
-          background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+          background-color: #3a3f4b;
           border-radius: 10px;
           padding: 15px;
           margin: 15px 0;
           text-align: center;
           font-size: 16px;
           font-weight: 500;
-          color: #2d3436;
+          color: #abb2bf;
+          border: 1px solid #4a5568;
+        }
+        .box {
+          background-color: #3a3f4b;
+          color: #abb2bf;
+          border: 1px solid #4a5568;
+        }
+        .box-header {
+          background-color: #21252b;
+          color: #abb2bf;
+        }
+        .nav-tabs-custom > .nav-tabs > li.active {
+          border-top-color: #61afef;
+        }
+        .sidebar-menu > li > a {
+          color: #abb2bf;
+        }
+        .sidebar-menu > li.active > a {
+          background-color: #3a3f4b;
+          color: #61afef;
         }
       "))
     ),
@@ -255,7 +289,7 @@ server <- function(input, output, session) {
         ifelse(is.null(values$current_stretch$name), "NULL", values$current_stretch$name), "\n")
     cat("values$show_stretch:", values$show_stretch, "\n")
     
-    # Update UI to show the stretch
+    # Update UI to show the stretch or supportive message
     output$stretch_display <- renderUI({
       cat("Rendering stretch_display UI.\n")
       cat("values$show_stretch in renderUI:", values$show_stretch, "\n")
@@ -263,16 +297,32 @@ server <- function(input, output, session) {
       
       if (values$show_stretch && !is.null(values$current_stretch)) {
         cat("Rendering actual stretch display for:", values$current_stretch$name, "\n")
-        div(
-          div(class = "stretch-name", values$current_stretch$name),
-          div(class = "stretch-description", values$current_stretch$description),
-          div(class = "action-buttons",
-            actionButton("mark_done", "✅ Done!", class = "btn-done btn-lg"),
-            actionButton("search_stretch", "🔍 Search Stretch", class = "btn-stretch"), # New button
-            br(), br(),
-            actionButton("get_another", "🎯 Get Another Stretch", class = "btn-stretch")
+        
+        # Check if this is a supportive message
+        if (!is.null(values$current_stretch$is_supportive_message) && values$current_stretch$is_supportive_message) {
+          # Display supportive message with different styling and no action buttons
+          div(
+            div(class = "stretch-name", values$current_stretch$name),
+            div(class = "stretch-description", values$current_stretch$description),
+            br(),
+            div(style = "text-align: center; margin-top: 20px;",
+              p("Come back tomorrow for more stretches! 🌅",
+                style = "font-size: 16px; color: #98c379; font-weight: 500;")
+            )
           )
-        )
+        } else {
+          # Display regular stretch with action buttons
+          div(
+            div(class = "stretch-name", values$current_stretch$name),
+            div(class = "stretch-description", values$current_stretch$description),
+            div(class = "action-buttons",
+              actionButton("mark_done", "✅ Done!", class = "btn-done btn-lg"),
+              actionButton("search_stretch", "🔍 Search Stretch", class = "btn-stretch"),
+              br(), br(),
+              actionButton("get_another", "🎯 Get Another Stretch", class = "btn-stretch")
+            )
+          )
+        }
       } else {
         cat("Rendering initial/no stretch display.\n")
         div(
@@ -289,7 +339,8 @@ server <- function(input, output, session) {
   
   # Mark as done
   observeEvent(input$mark_done, {
-    if (!is.null(values$current_stretch)) {
+    if (!is.null(values$current_stretch) &&
+        (is.null(values$current_stretch$is_supportive_message) || !values$current_stretch$is_supportive_message)) {
       record_stretch_action(values$current_stretch$id, "completed")
       values$daily_stats <- load_daily_stats()
       values$stretch_history <- load_stretch_history()
@@ -302,19 +353,34 @@ server <- function(input, output, session) {
       values$current_stretch <- stretch
       values$show_stretch <- TRUE # Ensure the stretch is displayed
 
-      # Update UI to show the next stretch directly
+      # Update UI to show the next stretch or supportive message
       output$stretch_display <- renderUI({
         if (values$show_stretch && !is.null(values$current_stretch)) {
-          div(
-            div(class = "stretch-name", values$current_stretch$name),
-            div(class = "stretch-description", values$current_stretch$description),
-            div(class = "action-buttons",
-              actionButton("mark_done", "✅ Done!", class = "btn-done btn-lg"),
-              actionButton("search_stretch", "🔍 Search Stretch", class = "btn-stretch"),
-              br(), br(),
-              actionButton("get_another", "🎯 Get Another Stretch", class = "btn-stretch")
+          # Check if this is a supportive message
+          if (!is.null(values$current_stretch$is_supportive_message) && values$current_stretch$is_supportive_message) {
+            # Display supportive message
+            div(
+              div(class = "stretch-name", values$current_stretch$name),
+              div(class = "stretch-description", values$current_stretch$description),
+              br(),
+              div(style = "text-align: center; margin-top: 20px;",
+                p("Come back tomorrow for more stretches! 🌅",
+                  style = "font-size: 16px; color: #98c379; font-weight: 500;")
+              )
             )
-          )
+          } else {
+            # Display regular stretch
+            div(
+              div(class = "stretch-name", values$current_stretch$name),
+              div(class = "stretch-description", values$current_stretch$description),
+              div(class = "action-buttons",
+                actionButton("mark_done", "✅ Done!", class = "btn-done btn-lg"),
+                actionButton("search_stretch", "🔍 Search Stretch", class = "btn-stretch"),
+                br(), br(),
+                actionButton("get_another", "🎯 Get Another Stretch", class = "btn-stretch")
+              )
+            )
+          }
         } else {
           div(
             h3("Ready to stretch?"),
@@ -338,23 +404,39 @@ server <- function(input, output, session) {
     # Update the current stretch display
     output$stretch_display <- renderUI({
       if (!is.null(values$current_stretch)) {
-        div(
-          div(class = "stretch-name", values$current_stretch$name),
-          div(class = "stretch-description", values$current_stretch$description),
-          div(class = "action-buttons",
-            actionButton("mark_done", "✅ Done!", class = "btn-done btn-lg"),
-            actionButton("search_stretch", "🔍 Search Stretch", class = "btn-stretch"), # New button
-            br(), br(),
-            actionButton("get_another", "🎯 Get Another Stretch", class = "btn-stretch")
+        # Check if this is a supportive message
+        if (!is.null(values$current_stretch$is_supportive_message) && values$current_stretch$is_supportive_message) {
+          # Display supportive message
+          div(
+            div(class = "stretch-name", values$current_stretch$name),
+            div(class = "stretch-description", values$current_stretch$description),
+            br(),
+            div(style = "text-align: center; margin-top: 20px;",
+              p("Come back tomorrow for more stretches! 🌅",
+                style = "font-size: 16px; color: #98c379; font-weight: 500;")
+            )
           )
-        )
+        } else {
+          # Display regular stretch
+          div(
+            div(class = "stretch-name", values$current_stretch$name),
+            div(class = "stretch-description", values$current_stretch$description),
+            div(class = "action-buttons",
+              actionButton("mark_done", "✅ Done!", class = "btn-done btn-lg"),
+              actionButton("search_stretch", "🔍 Search Stretch", class = "btn-stretch"),
+              br(), br(),
+              actionButton("get_another", "🎯 Get Another Stretch", class = "btn-stretch")
+            )
+          )
+        }
       }
     }) # Closing parenthesis for renderUI
   }) # Closing parenthesis for observeEvent(input$get_another, ...)
 
   # Web search for current stretch
   observeEvent(input$search_stretch, {
-    if (!is.null(values$current_stretch)) {
+    if (!is.null(values$current_stretch) &&
+        (is.null(values$current_stretch$is_supportive_message) || !values$current_stretch$is_supportive_message)) {
       search_query <- URLencode(paste("stretch exercise", values$current_stretch$name), reserved = TRUE)
       search_url <- paste0("https://www.google.com/search?q=", search_query)
       shinyjs::runjs(paste0("window.open('", search_url, "', '_blank');"))
@@ -376,7 +458,7 @@ server <- function(input, output, session) {
       value = today_count,
       subtitle = "Completed Today",
       icon = icon("check-circle"),
-      color = "green"
+      color = "light-blue"
     )
   })
   
@@ -386,7 +468,7 @@ server <- function(input, output, session) {
       value = streak,
       subtitle = "Day Streak",
       icon = icon("fire"),
-      color = "orange"
+      color = "yellow"
     )
   })
   
@@ -396,7 +478,7 @@ server <- function(input, output, session) {
       value = total,
       subtitle = "Total Completed",
       icon = icon("trophy"),
-      color = "blue"
+      color = "purple"
     )
   })
   
@@ -420,7 +502,7 @@ server <- function(input, output, session) {
       value = days,
       subtitle = "Days Active",
       icon = icon("calendar-check"),
-      color = "purple"
+      color = "light-blue"
     )
   })
   
@@ -430,7 +512,7 @@ server <- function(input, output, session) {
       value = round(avg, 1),
       subtitle = "Avg per Day",
       icon = icon("chart-line"),
-      color = "teal"
+      color = "green"
     )
   })
   
