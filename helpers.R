@@ -1,14 +1,63 @@
 # Helper Functions for Stretch Tracker App
 # Contains algorithms, statistics, and chart generation functions
 
+# Load required database libraries (for compatibility)
+library(DBI)
+library(RSQLite)
+
+# Check daily stretch limits for a specific stretch
+check_daily_stretch_limit <- function(stretch_id, stretch_history) {
+  today <- Sys.Date()
+  
+  # Get today's actions for this specific stretch
+  today_actions <- stretch_history[
+    stretch_history$stretch_id == stretch_id &
+    stretch_history$date == today,
+  ]
+  
+  if (nrow(today_actions) == 0) {
+    return(list(can_deliver = TRUE, reason = "not_done_today"))
+  }
+  
+  # Count completed and total actions for this stretch today
+  completed_today <- sum(today_actions$action == "completed")
+  total_today <- nrow(today_actions)
+  
+  # If completed once today, don't deliver again
+  if (completed_today >= 1) {
+    return(list(can_deliver = FALSE, reason = "completed_once_today"))
+  }
+  
+  # If not completed but attempted twice, don't deliver again
+  if (completed_today == 0 && total_today >= 2) {
+    return(list(can_deliver = FALSE, reason = "attempted_twice_not_completed"))
+  }
+  
+  return(list(can_deliver = TRUE, reason = "within_limits"))
+}
+
+# Get available stretches for today based on daily limits
+get_available_stretches_today <- function(stretches, stretch_history) {
+  available_stretches <- data.frame()
+  
+  for (i in 1:nrow(stretches)) {
+    stretch_id <- stretches$id[i]
+    limit_check <- check_daily_stretch_limit(stretch_id, stretch_history)
+    
+    if (limit_check$can_deliver) {
+      available_stretches <- rbind(available_stretches, stretches[i, ])
+    }
+  }
+  
+  return(available_stretches)
+}
+
 # Smart stretch selection algorithm
 select_next_stretch <- function() {
   stretches <- load_stretches_data()
   stretch_history <- load_stretch_history()
   user_prefs <- load_user_preferences()
   
-  cat("Stretches loaded in select_next_stretch (before enabled check):", nrow(stretches), "rows\n")
-
   # Add enabled field if it doesn't exist (for backward compatibility)
   if (!"enabled" %in% names(stretches)) {
     stretches$enabled <- rep(TRUE, nrow(stretches)) # Initialize all to TRUE
@@ -16,28 +65,58 @@ select_next_stretch <- function() {
   
   # Filter to only enabled stretches, handling NA values in 'enabled' column
   enabled_stretches <- stretches[!is.na(stretches$enabled) & stretches$enabled == TRUE, ]
-  cat("Enabled stretches count:", nrow(enabled_stretches), "\n")
 
   if (nrow(enabled_stretches) == 0) {
-    cat("No enabled stretches found. Returning default message.\n")
     # If no stretches are enabled, return NULL or a default message
     return(list(
       id = 0,
       name = "No stretches available",
       description = "Please add some stretches in the Settings tab!",
       priority = "low",
-      category = "general"
+      category = "general",
+      is_supportive_message = TRUE
     ))
   }
   
-  # Calculate weights for enabled stretches only
-  weights <- calculate_stretch_weights(enabled_stretches, stretch_history, user_prefs)
+  # Filter stretches based on daily limits
+  available_today <- get_available_stretches_today(enabled_stretches, stretch_history)
+  
+  if (nrow(available_today) == 0) {
+    # No stretches available today due to daily limits
+    return(get_daily_limit_message())
+  }
+  
+  # Calculate weights for available stretches only
+  weights <- calculate_stretch_weights(available_today, stretch_history, user_prefs)
   
   # Select stretch based on weighted probability
-  selected_id <- sample(enabled_stretches$id, 1, prob = weights)
-  selected_stretch <- enabled_stretches[enabled_stretches$id == selected_id, ]
+  selected_id <- sample(available_today$id, 1, prob = weights)
+  selected_stretch <- available_today[available_today$id == selected_id, ]
   
   return(selected_stretch)
+}
+
+# Get supportive message when daily limits are reached
+get_daily_limit_message <- function() {
+  supportive_messages <- c(
+    "🌟 Amazing work today! You've reached your daily stretch goals. Your body is grateful for the care you've shown it!",
+    "🎉 Fantastic job! You've completed your stretching for today. Take a moment to appreciate how good your body feels!",
+    "💪 Well done! You've given your body the attention it deserves today. Rest and recovery are just as important!",
+    "🧘‍♀️ Excellent dedication! You've honored your commitment to wellness today. Your future self will thank you!",
+    "✨ Outstanding! You've completed your daily stretch routine. Enjoy the improved flexibility and mobility!",
+    "🏆 Incredible consistency! You've reached today's stretch limit. Your body is stronger and more flexible because of your efforts!",
+    "🌈 Beautiful work! You've given your muscles the love they needed today. Tomorrow brings new opportunities to stretch and grow!",
+    "💚 Wonderful job! You've completed your stretching goals for today. Your dedication to self-care is inspiring!"
+  )
+  
+  return(list(
+    id = -1,
+    name = "Daily Goals Achieved! 🎯",
+    description = sample(supportive_messages, 1),
+    priority = "high",
+    category = "supportive",
+    is_supportive_message = TRUE
+  ))
 }
 
 # Calculate weights for stretch selection
@@ -226,10 +305,12 @@ create_daily_progress_chart <- function(daily_stats) {
   if (is.null(daily_stats) || nrow(daily_stats) == 0) {
     # Return empty chart
     p <- plotly::plot_ly() %>%
-      plotly::add_text(x = 0.5, y = 0.5, text = "No data yet - start stretching!", 
-                      textfont = list(size = 16)) %>%
+      plotly::add_text(x = 0.5, y = 0.5, text = "No data yet - start stretching!",
+                      textfont = list(size = 16, color = '#abb2bf')) %>%
       plotly::layout(xaxis = list(showgrid = FALSE, showticklabels = FALSE),
-                    yaxis = list(showgrid = FALSE, showticklabels = FALSE))
+                    yaxis = list(showgrid = FALSE, showticklabels = FALSE),
+                    plot_bgcolor = '#3a3f4b',
+                    paper_bgcolor = '#3a3f4b')
     return(p)
   }
   
@@ -253,12 +334,15 @@ create_daily_progress_chart <- function(daily_stats) {
   }
   
   p <- plotly::plot_ly(chart_data, x = ~date, y = ~completed, type = 'scatter', mode = 'lines+markers',
-                      line = list(color = '#667eea', width = 3),
-                      marker = list(color = '#764ba2', size = 8)) %>%
+                      line = list(color = '#61afef', width = 3),
+                      marker = list(color = '#98c379', size = 8)) %>%
     plotly::layout(title = "Daily Stretch Progress",
-                  xaxis = list(title = "Date"),
-                  yaxis = list(title = "Stretches Completed"),
-                  hovermode = 'closest')
+                  xaxis = list(title = "Date", color = '#abb2bf'),
+                  yaxis = list(title = "Stretches Completed", color = '#abb2bf'),
+                  hovermode = 'closest',
+                  plot_bgcolor = '#3a3f4b',
+                  paper_bgcolor = '#3a3f4b',
+                  font = list(color = '#abb2bf'))
   
   return(p)
 }
@@ -266,20 +350,24 @@ create_daily_progress_chart <- function(daily_stats) {
 create_stretch_frequency_chart <- function(stretch_history) {
   if (is.null(stretch_history) || nrow(stretch_history) == 0) {
     p <- plotly::plot_ly() %>%
-      plotly::add_text(x = 0.5, y = 0.5, text = "No stretch data yet!", 
-                      textfont = list(size = 16)) %>%
+      plotly::add_text(x = 0.5, y = 0.5, text = "No stretch data yet!",
+                      textfont = list(size = 16, color = '#abb2bf')) %>%
       plotly::layout(xaxis = list(showgrid = FALSE, showticklabels = FALSE),
-                    yaxis = list(showgrid = FALSE, showticklabels = FALSE))
+                    yaxis = list(showgrid = FALSE, showticklabels = FALSE),
+                    plot_bgcolor = '#3a3f4b',
+                    paper_bgcolor = '#3a3f4b')
     return(p)
   }
   
   completed <- stretch_history[stretch_history$action == "completed", ]
   if (nrow(completed) == 0) {
     p <- plotly::plot_ly() %>%
-      plotly::add_text(x = 0.5, y = 0.5, text = "Complete some stretches to see frequency!", 
-                      textfont = list(size = 16)) %>%
+      plotly::add_text(x = 0.5, y = 0.5, text = "Complete some stretches to see frequency!",
+                      textfont = list(size = 16, color = '#abb2bf')) %>%
       plotly::layout(xaxis = list(showgrid = FALSE, showticklabels = FALSE),
-                    yaxis = list(showgrid = FALSE, showticklabels = FALSE))
+                    yaxis = list(showgrid = FALSE, showticklabels = FALSE),
+                    plot_bgcolor = '#3a3f4b',
+                    paper_bgcolor = '#3a3f4b')
     return(p)
   }
   
@@ -292,11 +380,14 @@ create_stretch_frequency_chart <- function(stretch_history) {
     stretch_counts <- stretch_counts[1:10, ]
   }
   
-  p <- plotly::plot_ly(stretch_counts, x = ~reorder(stretch, count), y = ~count, 
-                      type = 'bar', marker = list(color = '#4ecdc4')) %>%
+  p <- plotly::plot_ly(stretch_counts, x = ~reorder(stretch, count), y = ~count,
+                      type = 'bar', marker = list(color = '#56b6c2')) %>%
     plotly::layout(title = "Most Frequently Done Stretches",
-                  xaxis = list(title = "Stretch"),
-                  yaxis = list(title = "Times Completed")) %>%
+                  xaxis = list(title = "Stretch", color = '#abb2bf'),
+                  yaxis = list(title = "Times Completed", color = '#abb2bf'),
+                  plot_bgcolor = '#3a3f4b',
+                  paper_bgcolor = '#3a3f4b',
+                  font = list(color = '#abb2bf')) %>%
     plotly::config(displayModeBar = FALSE)
   
   return(p)
@@ -305,10 +396,12 @@ create_stretch_frequency_chart <- function(stretch_history) {
 create_weekly_trends_chart <- function(daily_stats) {
   if (is.null(daily_stats) || nrow(daily_stats) == 0) {
     p <- plotly::plot_ly() %>%
-      plotly::add_text(x = 0.5, y = 0.5, text = "No weekly data yet!", 
-                      textfont = list(size = 16)) %>%
+      plotly::add_text(x = 0.5, y = 0.5, text = "No weekly data yet!",
+                      textfont = list(size = 16, color = '#abb2bf')) %>%
       plotly::layout(xaxis = list(showgrid = FALSE, showticklabels = FALSE),
-                    yaxis = list(showgrid = FALSE, showticklabels = FALSE))
+                    yaxis = list(showgrid = FALSE, showticklabels = FALSE),
+                    plot_bgcolor = '#3a3f4b',
+                    paper_bgcolor = '#3a3f4b')
     return(p)
   }
   
@@ -318,18 +411,23 @@ create_weekly_trends_chart <- function(daily_stats) {
   
   if (nrow(weekly_stats) == 0) {
     p <- plotly::plot_ly() %>%
-      plotly::add_text(x = 0.5, y = 0.5, text = "Complete stretches to see trends!", 
-                      textfont = list(size = 16)) %>%
+      plotly::add_text(x = 0.5, y = 0.5, text = "Complete stretches to see trends!",
+                      textfont = list(size = 16, color = '#abb2bf')) %>%
       plotly::layout(xaxis = list(showgrid = FALSE, showticklabels = FALSE),
-                    yaxis = list(showgrid = FALSE, showticklabels = FALSE))
+                    yaxis = list(showgrid = FALSE, showticklabels = FALSE),
+                    plot_bgcolor = '#3a3f4b',
+                    paper_bgcolor = '#3a3f4b')
     return(p)
   }
   
-  p <- plotly::plot_ly(weekly_stats, x = ~week, y = ~completed_count, 
-                      type = 'bar', marker = list(color = '#ff6b6b')) %>%
+  p <- plotly::plot_ly(weekly_stats, x = ~week, y = ~completed_count,
+                      type = 'bar', marker = list(color = '#e06c75')) %>%
     plotly::layout(title = "Weekly Stretch Totals",
-                  xaxis = list(title = "Week"),
-                  yaxis = list(title = "Total Stretches")) %>%
+                  xaxis = list(title = "Week", color = '#abb2bf'),
+                  yaxis = list(title = "Total Stretches", color = '#abb2bf'),
+                  plot_bgcolor = '#3a3f4b',
+                  paper_bgcolor = '#3a3f4b',
+                  font = list(color = '#abb2bf')) %>%
     plotly::config(displayModeBar = FALSE)
   
   return(p)

@@ -14,7 +14,9 @@ required_packages <- c(
   "shinycssloaders",
   "dplyr",
   "ggplot2",
-  "lubridate"
+  "lubridate",
+  "DBI",
+  "RSQLite"
 )
 
 # Function to install packages if not already installed
