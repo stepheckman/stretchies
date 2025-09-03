@@ -8,6 +8,7 @@ library(DT)
 library(plotly)
 library(shinyWidgets)
 library(shinycssloaders)
+library(shinyjs)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
@@ -36,6 +37,9 @@ ui <- dashboardPage(
   ),
   
   dashboardBody(
+    # Initialize shinyjs
+    useShinyjs(),
+    
     # Custom CSS for dark theme styling
     tags$head(
       tags$style(HTML("
