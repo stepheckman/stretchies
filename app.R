@@ -14,13 +14,27 @@ library(ggplot2)
 library(lubridate)
 library(DBI)
 library(RSQLite)
+library(googlesheets4)
+library(googledrive)
+library(httr)
+library(jsonlite)
 
 # Source helper functions
 source("helpers.R")
 source("data_setup.R")
+source("google_sheets_helpers.R")
 
 # Initialize data
 initialize_data()
+
+# Initialize Google Sheets (if credentials are available)
+google_auth_success <- initialize_google_auth()
+if (google_auth_success) {
+  setup_google_sheets()
+  cat("Google Sheets integration enabled\n")
+} else {
+  cat("Running in local mode - Google Sheets integration disabled\n")
+}
 
 # Define UI
 ui <- dashboardPage(
@@ -148,6 +162,92 @@ ui <- dashboardPage(
           background-color: #3a3f4b;
           color: #61afef;
         }
+        /* DataTables styling for better readability */
+        .dataTables_wrapper {
+          color: #abb2bf !important;
+        }
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter,
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_paginate {
+          color: #abb2bf !important;
+        }
+        .dataTables_wrapper .dataTables_length label,
+        .dataTables_wrapper .dataTables_filter label {
+          color: #abb2bf !important;
+        }
+        .dataTables_wrapper .dataTables_length select,
+        .dataTables_wrapper .dataTables_filter input {
+          background-color: #3a3f4b !important;
+          color: #abb2bf !important;
+          border: 1px solid #4a5568 !important;
+        }
+        .dataTables_wrapper table.dataTable thead th,
+        .dataTables_wrapper table.dataTable thead td {
+          background-color: #21252b !important;
+          color: #abb2bf !important;
+          border-bottom: 1px solid #4a5568 !important;
+        }
+        .dataTables_wrapper table.dataTable tbody tr {
+          background-color: #3a3f4b !important;
+          color: #abb2bf !important;
+        }
+        .dataTables_wrapper table.dataTable tbody tr:hover {
+          background-color: #4a5568 !important;
+        }
+        .dataTables_wrapper table.dataTable tbody tr.selected {
+          background-color: #61afef !important;
+          color: #282c34 !important;
+        }
+        .dataTables_wrapper table.dataTable tbody td {
+          border-top: 1px solid #4a5568 !important;
+          color: #abb2bf !important;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+          background-color: #3a3f4b !important;
+          color: #abb2bf !important;
+          border: 1px solid #4a5568 !important;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+          background-color: #4a5568 !important;
+          color: #ffffff !important;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+          background-color: #61afef !important;
+          color: #282c34 !important;
+        }
+        /* Form elements styling for modals */
+        .modal .form-control {
+          background-color: #3a3f4b !important;
+          color: #abb2bf !important;
+          border: 1px solid #4a5568 !important;
+        }
+        .modal .form-control:focus {
+          background-color: #3a3f4b !important;
+          color: #abb2bf !important;
+          border-color: #61afef !important;
+          box-shadow: 0 0 0 0.2rem rgba(97, 175, 239, 0.25) !important;
+        }
+        /* Modal styling */
+        .modal-content {
+          background-color: #3a3f4b !important;
+          color: #abb2bf !important;
+          border: 1px solid #4a5568 !important;
+        }
+        .modal-header {
+          background-color: #21252b !important;
+          color: #abb2bf !important;
+          border-bottom: 1px solid #4a5568 !important;
+        }
+        .modal-title {
+          color: #abb2bf !important;
+        }
+        /* Specific styling for app info text */
+        pre {
+          background-color: #21252b !important;
+          color: #abb2bf !important;
+          border: 1px solid #4a5568 !important;
+        }
       "))
     ),
     
@@ -168,9 +268,7 @@ ui <- dashboardPage(
           column(width = 4,
             div(class = "stats-box",
               h4("📊 Today's Progress"),
-              valueBoxOutput("today_completed", width = 12),
-              valueBoxOutput("current_streak", width = 12),
-              valueBoxOutput("total_stretches", width = 12)
+              valueBoxOutput("today_completed", width = 12)
             )
           )
         )
@@ -240,6 +338,33 @@ ui <- dashboardPage(
           column(width = 4,
             box(title = "📊 App Statistics", status = "info", solidHeader = TRUE, width = NULL,
               verbatimTextOutput("app_info")
+            ),
+            box(title = "💾 Backup & Restore", status = "warning", solidHeader = TRUE, width = NULL,
+              div(style = "margin-bottom: 15px;",
+                p("Save your stretch modifications before redeploying:", style = "margin-bottom: 10px;"),
+                downloadButton("download_stretches", "📥 Download Stretches CSV",
+                             class = "btn btn-primary", style = "width: 100%; margin-bottom: 10px;"),
+                fileInput("upload_stretches", "📤 Upload Stretches CSV",
+                         accept = ".csv", width = "100%"),
+                div(id = "upload_status", style = "margin-top: 10px;")
+              )
+            ),
+            box(title = "☁️ Google Sheets Sync", status = "info", solidHeader = TRUE, width = NULL,
+              div(style = "margin-bottom: 15px;",
+                conditionalPanel(
+                  condition = "true", # We'll update this based on auth status
+                  div(
+                    p("Sync your data with Google Sheets for cloud backup:", style = "margin-bottom: 10px;"),
+                    actionButton("sync_to_sheets", "☁️ Upload to Google Sheets",
+                               class = "btn btn-success", style = "width: 100%; margin-bottom: 10px;"),
+                    actionButton("sync_from_sheets", "📥 Download from Google Sheets",
+                               class = "btn btn-info", style = "width: 100%; margin-bottom: 10px;"),
+                    div(id = "sheets_status", style = "margin-top: 10px;",
+                      textOutput("sheets_auth_status")
+                    )
+                  )
+                )
+              )
             )
           )
         ),
@@ -466,25 +591,6 @@ server <- function(input, output, session) {
     )
   })
   
-  output$current_streak <- renderValueBox({
-    streak <- get_current_streak(values$daily_stats)
-    valueBox(
-      value = streak,
-      subtitle = "Day Streak",
-      icon = icon("fire"),
-      color = "yellow"
-    )
-  })
-  
-  output$total_stretches <- renderValueBox({
-    total <- get_total_stretches_completed(values$stretch_history)
-    valueBox(
-      value = total,
-      subtitle = "Total Completed",
-      icon = icon("trophy"),
-      color = "purple"
-    )
-  })
   
   # Charts
   output$daily_progress_plot <- renderPlotly({
@@ -793,6 +899,130 @@ server <- function(input, output, session) {
     values$daily_stats <- load_daily_stats()
     values$stretch_history <- load_stretch_history()
     showNotification("All data has been reset!", type = "warning", duration = 5)
+  })
+  
+  # Download stretches as CSV
+  output$download_stretches <- downloadHandler(
+    filename = function() {
+      paste0("stretches_backup_", Sys.Date(), ".csv")
+    },
+    content = function(file) {
+      stretches <- load_stretches_data()
+      write.csv(stretches, file, row.names = FALSE)
+    }
+  )
+  
+  # Upload stretches from CSV
+  observeEvent(input$upload_stretches, {
+    if (is.null(input$upload_stretches)) return()
+    
+    tryCatch({
+      # Read the uploaded CSV file
+      uploaded_stretches <- read.csv(input$upload_stretches$datapath, stringsAsFactors = FALSE)
+      
+      # Validate required columns
+      required_cols <- c("id", "name", "priority", "category", "description", "enabled")
+      if (!all(required_cols %in% names(uploaded_stretches))) {
+        showNotification("❌ Invalid CSV format. Missing required columns.", type = "error", duration = 5)
+        return()
+      }
+      
+      # Clear existing stretches and insert uploaded ones
+      con <- get_db_connection()
+      dbExecute(con, "DELETE FROM stretches")
+      
+      for (i in 1:nrow(uploaded_stretches)) {
+        dbExecute(con, "
+          INSERT INTO stretches (id, name, priority, category, description, enabled)
+          VALUES (?, ?, ?, ?, ?, ?)
+        ", params = list(
+          uploaded_stretches$id[i],
+          uploaded_stretches$name[i],
+          uploaded_stretches$priority[i],
+          uploaded_stretches$category[i],
+          uploaded_stretches$description[i],
+          uploaded_stretches$enabled[i]
+        ))
+      }
+      
+      dbDisconnect(con)
+      
+      # Refresh the stretch table
+      stretch_table_refresh(stretch_table_refresh() + 1)
+      
+      showNotification(paste("✅ Successfully restored", nrow(uploaded_stretches), "stretches!"),
+                      type = "message", duration = 5)
+      
+    }, error = function(e) {
+      showNotification(paste("❌ Upload failed:", e$message), type = "error", duration = 5)
+    })
+  })
+  
+  # Google Sheets sync functionality
+  output$sheets_auth_status <- renderText({
+    if (is_sheets_available()) {
+      paste("✅ Connected to Google Sheets")
+    } else {
+      "❌ Google Sheets not connected"
+    }
+  })
+  
+  # Sync to Google Sheets
+  observeEvent(input$sync_to_sheets, {
+    if (!is_sheets_available()) {
+      showNotification("❌ Google Sheets not available. Please check authentication.",
+                      type = "error", duration = 5)
+      return()
+    }
+    
+    tryCatch({
+      success <- sync_to_sheets()
+      if (success) {
+        showNotification("✅ Successfully synced data to Google Sheets!",
+                        type = "message", duration = 5)
+        
+        # Show the spreadsheet URL if available
+        url <- get_spreadsheet_url()
+        if (!is.null(url)) {
+          showNotification(paste("📊 View your data:", url),
+                          type = "message", duration = 10)
+        }
+      } else {
+        showNotification("❌ Failed to sync to Google Sheets",
+                        type = "error", duration = 5)
+      }
+    }, error = function(e) {
+      showNotification(paste("❌ Sync error:", e$message),
+                      type = "error", duration = 5)
+    })
+  })
+  
+  # Sync from Google Sheets
+  observeEvent(input$sync_from_sheets, {
+    if (!is_sheets_available()) {
+      showNotification("❌ Google Sheets not available. Please check authentication.",
+                      type = "error", duration = 5)
+      return()
+    }
+    
+    tryCatch({
+      success <- sync_from_sheets()
+      if (success) {
+        # Refresh all reactive data
+        values$daily_stats <- load_daily_stats()
+        values$stretch_history <- load_stretch_history()
+        stretch_table_refresh(stretch_table_refresh() + 1)
+        
+        showNotification("✅ Successfully synced data from Google Sheets!",
+                        type = "message", duration = 5)
+      } else {
+        showNotification("❌ Failed to sync from Google Sheets",
+                        type = "error", duration = 5)
+      }
+    }, error = function(e) {
+      showNotification(paste("❌ Sync error:", e$message),
+                      type = "error", duration = 5)
+    })
   })
 }
 

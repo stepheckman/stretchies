@@ -16,7 +16,11 @@ required_packages <- c(
   "ggplot2",
   "lubridate",
   "DBI",
-  "RSQLite"
+  "RSQLite",
+  "googlesheets4",
+  "googledrive",
+  "httr",
+  "jsonlite"
 )
 
 # Function to install packages if not already installed

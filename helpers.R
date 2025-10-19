@@ -203,14 +203,25 @@ get_today_completed_count <- function(daily_stats) {
 get_current_streak <- function(daily_stats) {
   if (is.null(daily_stats) || nrow(daily_stats) == 0) return(0)
   
-  # Sort by date descending
+  # Sort by date descending (most recent first)
   daily_stats <- daily_stats[order(daily_stats$date, decreasing = TRUE), ]
   
   streak <- 0
+  current_date <- Sys.Date()
+  
   for (i in 1:nrow(daily_stats)) {
+    # Check if this date is the expected consecutive date
+    expected_date <- current_date - (i - 1)
+    
+    if (daily_stats$date[i] != expected_date) {
+      # There's a gap in dates, streak is broken
+      break
+    }
+    
     if (daily_stats$completed_count[i] > 0) {
       streak <- streak + 1
     } else {
+      # No completed stretches on this day, streak is broken
       break
     }
   }
@@ -441,7 +452,6 @@ create_detailed_stats_table <- function(stretch_history) {
       Completed = 0,
       Skipped = 0,
       Total = 0,
-      "Success Rate" = "0%",
       "Last Done" = "Never",
       stringsAsFactors = FALSE
     ))
@@ -461,12 +471,6 @@ create_detailed_stats_table <- function(stretch_history) {
     skipped_count <- nrow(stretch_actions[stretch_actions$action == "skipped", ])
     total_count <- completed_count + skipped_count
     
-    if (total_count > 0) {
-      success_rate <- paste0(round((completed_count / total_count) * 100, 1), "%")
-    } else {
-      success_rate <- "0%"
-    }
-    
     last_completed <- stretch_actions[stretch_actions$action == "completed", ]
     if (nrow(last_completed) > 0) {
       last_done <- format(max(last_completed$date), "%Y-%m-%d")
@@ -479,7 +483,6 @@ create_detailed_stats_table <- function(stretch_history) {
       Completed = completed_count,
       Skipped = skipped_count,
       Total = total_count,
-      "Success Rate" = success_rate,
       "Last Done" = last_done,
       stringsAsFactors = FALSE
     )

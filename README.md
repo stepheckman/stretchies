@@ -9,6 +9,7 @@ A fun and engaging R Shiny app to help you maintain a consistent stretching rout
 - **Interactive Charts**: Visualize your progress with daily, weekly, and frequency charts
 - **Motivational System**: Encouraging messages and achievement tracking
 - **Custom Stretch Database**: Uses your personal list of stretches with priority levels
+- **Google Sheets Integration**: Sync your data to Google Sheets for cloud backup and access
 - **Fun UI**: Colorful, engaging interface with smooth animations
 
 ## 🚀 Quick Start
@@ -28,16 +29,21 @@ A fun and engaging R Shiny app to help you maintain a consistent stretching rout
    
    Or install packages manually:
    ```r
-   install.packages(c("shiny", "shinydashboard", "DT", "plotly", 
-                      "shinyWidgets", "shinycssloaders", "dplyr", 
-                      "ggplot2", "lubridate"))
+   install.packages(c("shiny", "shinydashboard", "DT", "plotly",
+                      "shinyWidgets", "shinycssloaders", "dplyr",
+                      "ggplot2", "lubridate", "DBI", "RSQLite",
+                      "googlesheets4", "googledrive", "httr", "jsonlite"))
    ```
 
 3. **Ensure your stretch list is ready**:
    - The app uses `list.csv` which should contain your stretches and priorities
    - Format: `Stretch,Priority` (where Priority is either "high" or "low")
 
-4. **Run the app**:
+4. **Optional: Set up Google Sheets integration**:
+   - See `GOOGLE_SHEETS_SETUP.md` for detailed instructions
+   - This enables cloud backup and sync functionality
+
+5. **Run the app**:
    ```r
    shiny::runApp()
    ```
@@ -48,13 +54,17 @@ A fun and engaging R Shiny app to help you maintain a consistent stretching rout
 
 ```
 stretchies/
-├── app.R                 # Main Shiny application
-├── helpers.R             # Core functions and algorithms
-├── data_setup.R          # Data initialization and management
-├── install_packages.R    # Package installation script
-├── list.csv             # Your stretch database
-├── README.md            # This file
-└── data/                # Created automatically for storing progress
+├── app.R                      # Main Shiny application
+├── helpers.R                  # Core functions and algorithms
+├── data_setup.R               # Data initialization and management
+├── google_sheets_helpers.R    # Google Sheets integration functions
+├── install_packages.R         # Package installation script
+├── deploy_to_shinyapps.R      # Deployment script for shinyapps.io
+├── list.csv                   # Your stretch database
+├── client_secret.json         # Google OAuth credentials (not in repo)
+├── README.md                  # This file
+├── GOOGLE_SHEETS_SETUP.md     # Google Sheets setup guide
+└── data/                      # Created automatically for storing progress
     ├── stretches.rds
     ├── daily_stats.rds
     ├── stretch_history.rds
@@ -95,6 +105,8 @@ The app uses a weighted selection system that considers:
 
 ### Settings Tab
 - View and manage your stretch database
+- Backup and restore data via CSV files
+- Sync data with Google Sheets (if configured)
 - Reset all data if needed
 - View app information and statistics
 
@@ -120,11 +132,38 @@ The app uses custom CSS in `app.R` for styling. You can modify colors, fonts, an
 
 ## 📊 Data Storage
 
+### Local Storage
 All data is stored locally in RDS files in the `data/` directory:
 - **stretches.rds**: Your stretch database
 - **daily_stats.rds**: Daily completion statistics
 - **stretch_history.rds**: Complete history of all stretch actions
 - **user_preferences.rds**: Algorithm settings and preferences
+
+### Cloud Storage (Optional)
+With Google Sheets integration enabled:
+- Data is synced to a Google Spreadsheet called "Stretch_Tracker_Data"
+- Provides cloud backup and access from multiple devices
+- Allows manual data editing in Google Sheets interface
+- Enables sharing data across different app instances
+
+## 🚀 Deploying to shinyapps.io
+
+### Quick Deployment
+1. **Set up your shinyapps.io account** and get your credentials
+2. **Configure Google Sheets** (optional but recommended):
+   - Follow the guide in `GOOGLE_SHEETS_SETUP.md`
+   - Place `client_secret.json` in your app directory
+3. **Run the deployment script**:
+   ```r
+   source("deploy_to_shinyapps.R")
+   ```
+
+### Manual Deployment
+```r
+library(rsconnect)
+rsconnect::setAccountInfo(name='your-account', token='your-token', secret='your-secret')
+rsconnect::deployApp(appName = "stretchies")
+```
 
 ## 🔧 Troubleshooting
 
@@ -140,9 +179,15 @@ If you encounter package installation errors:
 2. Check that `list.csv` exists and is properly formatted
 3. Verify you're in the correct directory when running the app
 
+### Google Sheets Issues
+1. **Authentication errors**: Check `GOOGLE_SHEETS_SETUP.md` for proper OAuth setup
+2. **Permission denied**: Ensure APIs are enabled in Google Cloud Console
+3. **Sync failures**: Verify internet connection and Google account access
+
 ### Data Issues
 - If you want to reset all progress: use the "Reset All Data" button in Settings
 - If data files become corrupted: delete the `data/` folder and restart the app
+- For cloud backup: use Google Sheets sync functionality
 
 ## 🎉 Tips for Success
 
